@@ -1,4 +1,4 @@
-var gane;
+var game;
 window.onload=function()
 {
     var config = {
