@@ -21,7 +21,7 @@ class SceneMain extends Phaser.Scene {
         //this.face.displayWidth=100
         //this.face.displayHeight=100
 
-        this.char = this.add.sprite(game.config.width/2,game.config.height/2,"boy");
+        this.char = this.add.sprite(0,game.config.height/2,"boy");
         var frameNames= this.anims.generateFrameNumbers('boy');
         this.anims.create({
             key: 'walk',
@@ -31,14 +31,41 @@ class SceneMain extends Phaser.Scene {
         });
 
         this.char.play("walk");
+        this.doWalk();
+
+        this.text1=this.add.text(200,300,"ALE fajny FONT!",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.text1.setOrigin(0.5,0.5);
+        // a tu macie do tworzenia tekstow: 
+        // https://phasergames.com/phaser-3-text-designer-tool/
+
+    }
+    doWalk(){
+        this.tweens.add({
+            targets: this.char,
+            duration: 5000,
+            x:game.config.width,
+            y:0,
+            alpha:0,
+            onComplete:this.onCompleteHandler.bind(this)
+        });
+    }
+    onCompleteHandler(tween, targets, custom)
+    {
+        var char=targets[0];
+        char.x=0;
+        char.y=game.config.height/2;
+        char.alpha=1;
+        this.doWalk();
     }
     update() {
         //constant running loop
 
+        /*
         this.char.x+=5; //bedzie se lazl do przodu
         if (this.char.x>game.config.width)
         {
             this.char.x=0;
         }
+        */
     }
 }
