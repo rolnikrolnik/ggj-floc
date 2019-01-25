@@ -6,8 +6,9 @@ class SceneMain extends Phaser.Scene {
     {
         //load images / sounds
 
-        this.load.image("face", "images/face.png")
+        this.load.image("face", "images/face.png");
         this.load.spritesheet('boy', 'images/boy.png', { frameWidth: 120, frameHeight: 200 });
+        this.load.spritesheet('square', 'images/square.png', {frameWidth: 50, frameHeight: 50});
     }
     create() {
         //define objects
@@ -53,6 +54,9 @@ class SceneMain extends Phaser.Scene {
         this.graphics.fillCircle(100,200,60);
         //this.graphics.strokePath();
 
+        var square = this.physics.add.sprite(200, 300,'square');
+        square.setBounce(0.3);
+        square.setCollideWorldBounds(true);
     }
     onUp()
     {
