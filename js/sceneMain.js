@@ -7,6 +7,7 @@ class SceneMain extends Phaser.Scene {
     preload()
     {
         this.load.image("empty", "images/houses/empty.png");
+        this.load.image("powerplant", "images/houses/powerplant.png");        
         this.load.image("1", "images/houses/1.png");
         this.load.image("2", "images/houses/2.png");
         this.load.image("3", "images/houses/3.png");
@@ -23,13 +24,18 @@ class SceneMain extends Phaser.Scene {
         this.house1.displayWidth=150;
         this.house1.displayHeight=150;
 
+        this.powerplant = this.add.image(360, 360, "powerplant");
+        this.powerplant.displayWidth=200;
+        this.powerplant.displayHeight=200;
+
+
         this.houses = this.physics.add.staticGroup();
 
         this.houses.create(360, 100,'square');
         this.houses.create(360, 620,'square');
         //this.houses.create(100, 360,'square');
         this.houses.create(620, 360,'square');
-        this.houses.create(360, 360,'square').setScale(2);
+        //this.houses.create(360, 360,'square').setScale(2);
         
         this.pipes = this.physics.add.staticGroup();
         this.pipes.create(250, 365, 'rect').setDisplaySize(120, 5);
