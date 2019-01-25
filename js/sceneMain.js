@@ -1,6 +1,8 @@
 class SceneMain extends Phaser.Scene {
     constructor() {
         super('SceneMain');
+
+        this.counter = 0;
     }
     preload()
     {
@@ -97,6 +99,15 @@ class SceneMain extends Phaser.Scene {
         console.log('down');
        }
 
+
+       this.counter++;
+       console.log(this.counter);
        
+       if (this.counter == 100) {
+
+        this.plant.update();
+
+        this.counter = 0;
+       }
     }
 }
