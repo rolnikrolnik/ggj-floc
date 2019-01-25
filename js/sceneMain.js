@@ -30,10 +30,19 @@ class SceneMain extends Phaser.Scene {
         this.pipes.create(360, 500, 'rect').setDisplaySize(5, 80);
 
         this.houses = this.add.group();
-        this.plant.north.houses.forEach(h => this.printHouse(h));
-        this.plant.south.houses.forEach(h => this.printHouse(h));
-        this.plant.west.houses.forEach(h => this.printHouse(h));
-        this.plant.east.houses.forEach(h => this.printHouse(h));
+        this.plant.north.houses.forEach(h => {
+            this.printHouse(h);
+            this.northText = this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        });
+        this.plant.south.houses.forEach(h => {this.printHouse(h);
+            this.southText = this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        });
+        this.plant.west.houses.forEach(h => {this.printHouse(h);
+            this.westText = this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        });
+        this.plant.east.houses.forEach(h => {this.printHouse(h);
+            this.eastText = this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+                    }            );
 
         this.cursors = this.input.keyboard.createCursorKeys();
     }
@@ -109,6 +118,10 @@ class SceneMain extends Phaser.Scene {
             console.log(error);
             this.counter = 21;
        }
+       this.plant.south.houses.forEach(h => this.southText.setText(h.temp));
+       this.plant.north.houses.forEach(h => this.northText.setText(h.temp));
+       this.plant.east.houses.forEach(h => this.eastText.setText(h.temp));
+       this.plant.west.houses.forEach(h => this.westText.setText(h.temp));
     }
 
     printHouse(house) {
