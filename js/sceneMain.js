@@ -101,13 +101,18 @@ class SceneMain extends Phaser.Scene {
 
 
        this.counter++;
-       console.log(this.counter);
        
-       if (this.counter == 100) {
+       try {
+        if (this.counter == 20) {
 
-        this.plant.update();
-
-        this.counter = 0;
+            this.plant.update();
+    
+            this.counter = 0;
+           }
+       }
+       catch(error) {
+            console.log(error);
+            this.counter = 21;
        }
     }
 }
