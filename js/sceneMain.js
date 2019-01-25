@@ -1,7 +1,7 @@
 class SceneMain extends Phaser.Scene {
     constructor() {
         super('SceneMain');
-
+        Phaser.Scene.call(this, { key: 'sceneMain' });
         this.counter = 0;
     }
     preload()
