@@ -53,17 +53,20 @@ class SceneMain extends Phaser.Scene {
         this.houses = this.add.group();
         this.plant.north.houses.forEach(h => {
             this.printHouse(h);
-            this.northText = this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'}));
         });
-        this.plant.south.houses.forEach(h => {this.printHouse(h);
-            this.southText = this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.plant.south.houses.forEach(h => {
+            this.printHouse(h);
+            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'}));
         });
-        this.plant.west.houses.forEach(h => {this.printHouse(h);
-            this.westText = this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.plant.west.houses.forEach(h => {
+            this.printHouse(h);
+            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'}));
         });
-        this.plant.east.houses.forEach(h => {this.printHouse(h);
-            this.eastText = this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
-                    }            );
+        this.plant.east.houses.forEach(h => {
+            this.printHouse(h);
+            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'}));
+        });
 
         this.cursors = this.input.keyboard.createCursorKeys();
     }
@@ -105,13 +108,12 @@ class SceneMain extends Phaser.Scene {
             this.counter = 51;
        }
 
-       this.plant.south.houses.forEach(h => this.southText.setText(h.temp));
-       this.plant.north.houses.forEach(h => this.northText.setText(h.temp));
-       this.plant.east.houses.forEach(h => this.eastText.setText(h.temp));
-       this.plant.west.houses.forEach(h => this.westText.setText(h.temp));
+       this.plant.south.houses.forEach(h => h.thermometer.setText(h.temp));
+       this.plant.north.houses.forEach(h => h.thermometer.setText(h.temp));
+       this.plant.east.houses.forEach(h => h.thermometer.setText(h.temp));
+       this.plant.west.houses.forEach(h => h.thermometer.setText(h.temp));
 
        this.drawPipes(...this.plant.directions.map(direction => direction.isOpen));
-
     }
 
     printHouse(house) {

@@ -61,4 +61,8 @@ class House {
     increase(power) {
         this.temp = this.temp + power;
     }
+
+    createThermometer(thermometer){
+        this.thermometer = thermometer;
+    }
 }
