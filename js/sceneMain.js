@@ -8,6 +8,8 @@ class SceneMain extends Phaser.Scene {
         this.load.spritesheet('rect', 'images/pipe.png', {frameWidth: 100, frameHeight: 50});
     }
     create() {
+        this.plant = new PowerPlant();
+
         this.houses = this.physics.add.staticGroup();
 
         this.houses.create(360, 100,'square');
@@ -77,5 +79,7 @@ class SceneMain extends Phaser.Scene {
        } else if (this.cursors.down.isDown) {
         console.log('down');
        }
+
+       
     }
 }
