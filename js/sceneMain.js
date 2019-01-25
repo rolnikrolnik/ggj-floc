@@ -24,6 +24,10 @@ class SceneMain extends Phaser.Scene {
         this.house1.displayWidth=150;
         this.house1.displayHeight=150;
 
+        this.house2 = this.add.image(360, 620, "2");
+        this.house2.displayWidth=150;
+        this.house2.displayHeight=150;
+
         this.powerplant = this.add.image(360, 360, "powerplant");
         this.powerplant.displayWidth=200;
         this.powerplant.displayHeight=200;
@@ -32,16 +36,13 @@ class SceneMain extends Phaser.Scene {
         this.houses = this.physics.add.staticGroup();
 
         this.houses.create(360, 100,'square');
-        this.houses.create(360, 620,'square');
-        //this.houses.create(100, 360,'square');
         this.houses.create(620, 360,'square');
-        //this.houses.create(360, 360,'square').setScale(2);
         
         this.pipes = this.physics.add.staticGroup();
-        this.pipes.create(250, 365, 'rect').setDisplaySize(120, 5);
+        this.pipes.create(225, 365, 'rect').setDisplaySize(80, 5);
         this.pipes.create(500, 360, 'rect').setDisplaySize(200, 10);
         this.pipes.create(360, 220, 'rect').setDisplaySize(10, 200);
-        this.pipes.create(360, 500, 'rect').setDisplaySize(10, 200);
+        this.pipes.create(360, 500, 'rect').setDisplaySize(5, 80);
 
         this.cursors = this.input.keyboard.createCursorKeys();
         this.cursor = {
