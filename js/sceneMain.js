@@ -1,7 +1,7 @@
 class SceneMain extends Phaser.Scene {
     constructor() {
         super('SceneMain');
-
+        Phaser.Scene.call(this, { key: 'sceneMain' });
         this.counter = 0;
     }
     preload()
@@ -49,44 +49,9 @@ class SceneMain extends Phaser.Scene {
 
         this.cursors = this.input.keyboard.createCursorKeys();
     }
-    onUp()
-    {
-        
-    }
-    onDown()
-    {
-        
-    }
-    doWalk(){
-        this.tweens.add({
-            targets: this.char,
-            duration: 5000,
-            x:game.config.width,
-            y:0,
-            alpha:0,
-            onComplete:this.onCompleteHandler.bind(this)
-        });
-    }
-    onCompleteHandler(tween, targets, custom)
-    {
-        var char=targets[0];
-        char.x=0;
-        char.y=game.config.height/2;
-        char.alpha=1;
-        this.doWalk();
-    }
+    
+    
     update() {
-        //constant running loop
-
-        /*
-        this.char.x+=5; //bedzie se lazl do przodu
-        if (this.char.x>game.config.width)
-        {
-            this.char.x=0;
-        }
-        */
-
-        //http://labs.phaser.io/edit.html?src=src/input/keyboard/just%20down.js
        if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
        {
         this.plant.west.toggle();
@@ -110,7 +75,7 @@ class SceneMain extends Phaser.Scene {
        this.counter++;
        
        try {
-        if (this.counter == 20) {
+        if (this.counter == 50) {
 
             this.plant.update();
     
@@ -119,7 +84,7 @@ class SceneMain extends Phaser.Scene {
        }
        catch(error) {
             console.log(error);
-            this.counter = 21;
+            this.counter = 51;
        }
 
        this.plant.south.houses.forEach(h => h.thermometer.setText(h.temp));
