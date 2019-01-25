@@ -18,8 +18,8 @@ class SceneMain extends Phaser.Scene {
         this.plant = new PowerPlant();
 
         this.house1 = this.add.image(100, 360, "1");
-        this.house1.displayWidth=100;
-        this.house1.displayHeight=100;
+        this.house1.displayWidth=150;
+        this.house1.displayHeight=150;
 
         this.houses = this.physics.add.staticGroup();
 
@@ -30,7 +30,7 @@ class SceneMain extends Phaser.Scene {
         this.houses.create(360, 360,'square').setScale(2);
         
         this.pipes = this.physics.add.staticGroup();
-        this.pipes.create(230, 365, 'rect').setDisplaySize(155, 5);
+        this.pipes.create(250, 365, 'rect').setDisplaySize(120, 5);
         this.pipes.create(500, 360, 'rect').setDisplaySize(200, 10);
         this.pipes.create(360, 220, 'rect').setDisplaySize(10, 200);
         this.pipes.create(360, 500, 'rect').setDisplaySize(10, 200);
