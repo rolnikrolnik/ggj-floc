@@ -1,9 +1,9 @@
 class PowerPlant {
     constructor() {
-        this.north = new Direction(100, 1);
-        this.south = new Direction(100, 2);
-        this.east = new Direction(100, 3);
-        this.west = new Direction(100, 4);
+        this.north = new Direction([new House(100, 1, 360, 100)]);
+        this.south = new Direction([new House(100, 2, 360, 620) ]);
+        this.east = new Direction([new House(100, 3, 620, 360) ]);
+        this.west = new Direction([new House(100, 4, 100, 360) ]);
     }
 
     update() {
@@ -15,9 +15,9 @@ class PowerPlant {
 }
 
 class Direction {
-    constructor(temp, ins) {
+    constructor(houses) {
         this.isOpen = false;
-        this.houses = [ new House(temp, ins) ];
+        this.houses = houses;
     }
 
     update(label) {
@@ -39,9 +39,11 @@ class Direction {
 }
 
 class House {
-    constructor(temp, insulation) {
+    constructor(temp, insulation, x, y) {
         this.temp = temp;
         this.insulation = insulation;
+        this.x = x;
+        this.y = y;
     }
 
     decrease() {
