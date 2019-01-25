@@ -25,6 +25,12 @@ class SceneMain extends Phaser.Scene {
         this.pipes.create(360, 500, 'rect').setDisplaySize(10, 200);
 
         this.cursors = this.input.keyboard.createCursorKeys();
+        this.cursor = {
+            up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
+            down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN),
+            left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
+            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
+        }
         
     }
     onUp()
@@ -65,18 +71,18 @@ class SceneMain extends Phaser.Scene {
         */
 
         //http://labs.phaser.io/edit.html?src=src/input/keyboard/just%20down.js
-       if (this.cursors.left.isDown)
+       if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
        {
         console.log('left');
        }
-       else if (this.cursors.right.isDown)
+       else if (Phaser.Input.Keyboard.JustDown(this.cursors.right))
        {
         console.log('right');
        }
-       else if (this.cursors.up.isDown)
+       else if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
        {
         console.log('up');
-       } else if (this.cursors.down.isDown) {
+       } else if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
         console.log('down');
        }
 
