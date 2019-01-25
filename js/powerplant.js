@@ -4,13 +4,18 @@ class PowerPlant {
         this.south = new Direction([new House(100, 2, 360, 620) ]);
         this.east = new Direction([new House(100, 3, 620, 360) ]);
         this.west = new Direction([new House(100, 4, 100, 360) ]);
+
+        this.directions = [ this.north, this.south, this.east, this.west ];
+
+        this.power = POWERPLANT_POWER;
     }
 
     update() {
-        this.north.update('north');
-        this.south.update('south');
-        this.east.update('east');
-        this.west.update('west');
+        // get power per direction
+        const numberOfOpenDirections = this.directions.filter(d => d.isOpen).length;
+        const powerPerDirection = this.power/numberOfOpenDirections;
+
+        this.directions.forEach(direction => direction.update(powerPerDirection));
     }
 }
 
@@ -24,10 +29,10 @@ class Direction {
         this.isOpen = !this.isOpen;
     }
 
-    update(label) {
+    update(power) {
         this.houses.forEach(house => {
             if (this.isOpen) {
-                house.increase();
+                house.increase(power);
             } else {
                 house.decrease();
             }
@@ -53,7 +58,7 @@ class House {
         this.temp = this.temp - (HEAT_LOSS - this.insulation);
     }
 
-    increase() {
-        this.temp = this.temp++;
+    increase(power) {
+        this.temp = this.temp + power;
     }
 }
