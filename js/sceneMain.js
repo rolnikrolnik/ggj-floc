@@ -4,22 +4,33 @@ class SceneMain extends Phaser.Scene {
     }
     preload()
     {
+        this.load.image("empty", "images/houses/empty.png");
+        this.load.image("1", "images/houses/1.png");
+        this.load.image("2", "images/houses/2.png");
+        this.load.image("3", "images/houses/3.png");
+        this.load.image("4", "images/houses/4.png");
+        this.load.image("5", "images/houses/5.png");
+
         this.load.spritesheet('square', 'images/square.png', {frameWidth: 50, frameHeight: 50});
         this.load.spritesheet('rect', 'images/pipe.png', {frameWidth: 100, frameHeight: 50});
     }
     create() {
         this.plant = new PowerPlant();
 
+        this.house1 = this.add.image(100, 360, "1");
+        this.house1.displayWidth=100;
+        this.house1.displayHeight=100;
+
         this.houses = this.physics.add.staticGroup();
 
         this.houses.create(360, 100,'square');
         this.houses.create(360, 620,'square');
-        this.houses.create(100, 360,'square');
+        //this.houses.create(100, 360,'square');
         this.houses.create(620, 360,'square');
         this.houses.create(360, 360,'square').setScale(2);
         
         this.pipes = this.physics.add.staticGroup();
-        this.pipes.create(220, 360, 'rect').setDisplaySize(200, 10);
+        this.pipes.create(230, 365, 'rect').setDisplaySize(155, 5);
         this.pipes.create(500, 360, 'rect').setDisplaySize(200, 10);
         this.pipes.create(360, 220, 'rect').setDisplaySize(10, 200);
         this.pipes.create(360, 500, 'rect').setDisplaySize(10, 200);
