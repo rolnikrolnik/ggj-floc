@@ -4,67 +4,34 @@ class SceneMain extends Phaser.Scene {
     }
     preload()
     {
-        //load images / sounds
-
-        this.load.image("face", "images/face.png");
-        this.load.spritesheet('boy', 'images/boy.png', { frameWidth: 120, frameHeight: 200 });
         this.load.spritesheet('square', 'images/square.png', {frameWidth: 50, frameHeight: 50});
+        this.load.spritesheet('rect', 'images/pipe.png', {frameWidth: 100, frameHeight: 50});
     }
     create() {
-        //define objects
+        this.houses = this.physics.add.staticGroup();
 
-        //this.face = this.add.image(100, 200, "face");
-        //this.face.setOrigin(0,0) // gorny lewy rog
-        //this.face.alpha=.5; //przezroczystosc (0 -1)
-        //this.face.angle=45; //obrot
-        //this.face.scaleX=.5 //zmniejszenie (0-1)
-        //this.face.scaleY=.5 //zmniejszenie (0-1)
-        //this.face.displayWidth=100
-        //this.face.displayHeight=100
-        //this.face.setInteractive();
-        //this.face.on('pointerdown',this.onDown,this);
-        //this.face.on('pointerup',this.onUp,this);
+        this.houses.create(360, 100,'square');
+        this.houses.create(360, 620,'square');
+        this.houses.create(100, 360,'square');
+        this.houses.create(620, 360,'square');
+        this.houses.create(360, 360,'square').setScale(2);
+        
+        this.pipes = this.physics.add.staticGroup();
+        this.pipes.create(220, 360, 'rect').setDisplaySize(200, 10);
+        this.pipes.create(500, 360, 'rect').setDisplaySize(200, 10);
+        this.pipes.create(360, 220, 'rect').setDisplaySize(10, 200);
+        this.pipes.create(360, 500, 'rect').setDisplaySize(10, 200);
 
-        /*
-        this.char = this.add.sprite(0,game.config.height/2,"boy");
-        var frameNames= this.anims.generateFrameNumbers('boy');
-        this.anims.create({
-            key: 'walk',
-            frames: frameNames,
-            frameRate: 16,
-            repeat: -1 //w nieskonczonosc
-        });
-
-        this.char.play("walk");
-        this.doWalk();
-        */
-
-        this.text1=this.add.text(200,300,"ALE fajny FONT!",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
-        this.text1.setOrigin(0.5,0.5);
-        // a tu macie do tworzenia tekstow: 
-        // https://phasergames.com/phaser-3-text-designer-tool/
-
-        this.graphics=this.add.graphics();
-        this.graphics.lineStyle(8,0xff0000);
-        this.graphics.fillStyle(0xff00ff,.5);
-        //this.graphics.moveTo(0,0);
-        //this.graphics.lineTo(100,300);
-        //this.graphics.strokeRect(100,200,50,50);
-        //this.graphics.strokeCircle(100,200,60);
-        this.graphics.fillCircle(100,200,60);
-        //this.graphics.strokePath();
-
-        var square = this.physics.add.sprite(200, 300,'square');
-        square.setBounce(0.3);
-        square.setCollideWorldBounds(true);
+        this.cursors = this.input.keyboard.createCursorKeys();
+        
     }
     onUp()
     {
-        this.face.alpha=1;
+        
     }
     onDown()
     {
-        this.face.alpha=0.5;
+        
     }
     doWalk(){
         this.tweens.add({
@@ -94,5 +61,21 @@ class SceneMain extends Phaser.Scene {
             this.char.x=0;
         }
         */
+
+        //http://labs.phaser.io/edit.html?src=src/input/keyboard/just%20down.js
+       if (this.cursors.left.isDown)
+       {
+        console.log('left');
+       }
+       else if (this.cursors.right.isDown)
+       {
+        console.log('right');
+       }
+       else if (this.cursors.up.isDown)
+       {
+        console.log('up');
+       } else if (this.cursors.down.isDown) {
+        console.log('down');
+       }
     }
 }
