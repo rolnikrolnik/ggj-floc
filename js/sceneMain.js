@@ -17,18 +17,39 @@ class SceneMain extends Phaser.Scene {
         this.load.spritesheet('square', 'images/square.png', {frameWidth: 50, frameHeight: 50});
         this.load.spritesheet('rect', 'images/pipe.png', {frameWidth: 100, frameHeight: 50});
     }
+
+    drawPipes(north, south, west, east) {
+        this.pipes.clear();
+
+        this.drawPipe(185, 365, 265, 365, west ? RED : GREY);
+        this.drawPipe(470, 365, 550, 365, east ? RED : GREY);
+        this.drawPipe(365, 175, 365, 255, north ? RED : GREY);
+        this.drawPipe(365, 460, 365, 540, south ? RED : GREY);
+    }
+
+    drawPipe(xstart, ystart, xstop, ystop, color) {
+        this.pipes.lineStyle(5, color, 1.0);
+        this.pipes.beginPath();
+        this.pipes.moveTo(xstart, ystart);
+        this.pipes.lineTo(xstop, ystop);
+        this.pipes.closePath();
+        this.pipes.strokePath();
+    }
+
     create() {
         this.plant = new PowerPlant();
         this.powerplant = this.add.image(360, 360, 'powerplant');
         this.powerplant.displayWidth=200;
         this.powerplant.displayHeight=200;
 
-        this.pipes = this.add.group();
-        this.pipes.create(225, 365, 'rect').setDisplaySize(80, 5);
-        this.pipes.create(510, 360, 'rect').setDisplaySize(80, 5);
-        this.pipes.create(360, 215, 'rect').setDisplaySize(5, 80);
-        this.pipes.create(360, 500, 'rect').setDisplaySize(5, 80);
+        // this.pipes = this.add.group();
+        // this.pipes.create(225, 365, 'rect').setDisplaySize(80, 5);
+        // this.pipes.create(510, 360, 'rect').setDisplaySize(80, 5);
+        // this.pipes.create(360, 215, 'rect').setDisplaySize(5, 80);
+        // this.pipes.create(360, 500, 'rect').setDisplaySize(5, 80);
 
+        this.pipes = this.add.graphics();
+        
         this.houses = this.add.group();
         this.plant.north.houses.forEach(h => {
             this.printHouse(h);
@@ -83,10 +104,14 @@ class SceneMain extends Phaser.Scene {
             console.log(error);
             this.counter = 51;
        }
+
        this.plant.south.houses.forEach(h => this.southText.setText(h.temp));
        this.plant.north.houses.forEach(h => this.northText.setText(h.temp));
        this.plant.east.houses.forEach(h => this.eastText.setText(h.temp));
        this.plant.west.houses.forEach(h => this.westText.setText(h.temp));
+
+       this.drawPipes(...this.plant.directions.map(direction => direction.isOpen));
+
     }
 
     printHouse(house) {

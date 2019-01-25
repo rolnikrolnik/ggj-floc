@@ -5,7 +5,7 @@ class PowerPlant {
         this.east = new Direction([new House(100, 3, 620, 360) ]);
         this.west = new Direction([new House(100, 4, 100, 360) ]);
 
-        this.directions = [ this.north, this.south, this.east, this.west ];
+        this.directions = [ this.north, this.south, this.west, this.east ];
 
         this.power = POWERPLANT_POWER;
     }
