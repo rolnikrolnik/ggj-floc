@@ -37,7 +37,7 @@ class Direction {
                 house.decrease();
             }
 
-            console.log(`${ label } house temp: ${ house.temp } isOpen: ${ this.isOpen }`)
+            console.log(`house temp: ${ house.temp } isOpen: ${ this.isOpen }`)
 
             if (house.temp >= TEMP_MAX || house.temp <= TEMP_MIN) {
                 throw "GAME OVER";
