@@ -95,17 +95,21 @@ class SceneMain extends Phaser.Scene {
         //http://labs.phaser.io/edit.html?src=src/input/keyboard/just%20down.js
        if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
        {
+        this.plant.west.toggle();
         console.log('left');
        }
        else if (Phaser.Input.Keyboard.JustDown(this.cursors.right))
        {
+        this.plant.east.toggle();
         console.log('right');
        }
        else if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
        {
+           this.plant.north.toggle();
         console.log('up');
        } else if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
         console.log('down');
+        this.plant.south.toggle();
        }
 
 

@@ -20,8 +20,11 @@ class Direction {
         this.houses = [ new House(temp, ins) ];
     }
 
+    toggle() {
+        this.isOpen = !this.isOpen;
+    }
+
     update(label) {
-        console.log(label);
         this.houses.forEach(house => {
             if (this.isOpen) {
                 house.increase();
@@ -29,7 +32,7 @@ class Direction {
                 house.decrease();
             }
 
-            console.log(`house temp: ${ house.temp }`)
+            console.log(`${ label } house temp: ${ house.temp } isOpen: ${ this.isOpen }`)
 
             if (house.temp >= TEMP_MAX || house.temp <= TEMP_MIN) {
                 throw "GAME OVER";
