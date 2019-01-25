@@ -23,34 +23,19 @@ class SceneMain extends Phaser.Scene {
         this.powerplant.displayWidth=200;
         this.powerplant.displayHeight=200;
 
-        this.houses = this.add.group();
-        this.plant.north.houses.forEach(h => {
-            this.houses.create(h.x, h.y, h.insulation.toString()).setDisplaySize(150,150);
-        });
-        this.plant.south.houses.forEach(h => {
-            this.houses.create(h.x, h.y, h.insulation.toString()).setDisplaySize(150,150);
-        });
-        this.plant.west.houses.forEach(h => {
-            this.houses.create(h.x, h.y, h.insulation.toString()).setDisplaySize(150,150);
-        });
-        this.plant.east.houses.forEach(h => {
-            this.houses.create(h.x, h.y, h.insulation.toString()).setDisplaySize(150,150);
-        });
-
         this.pipes = this.add.group();
         this.pipes.create(225, 365, 'rect').setDisplaySize(80, 5);
         this.pipes.create(510, 360, 'rect').setDisplaySize(80, 5);
         this.pipes.create(360, 215, 'rect').setDisplaySize(5, 80);
         this.pipes.create(360, 500, 'rect').setDisplaySize(5, 80);
 
+        this.houses = this.add.group();
+        this.plant.north.houses.forEach(h => this.printHouse(h));
+        this.plant.south.houses.forEach(h => this.printHouse(h));
+        this.plant.west.houses.forEach(h => this.printHouse(h));
+        this.plant.east.houses.forEach(h => this.printHouse(h));
+
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.cursor = {
-            up: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.UP),
-            down: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN),
-            left: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT),
-            right: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT),
-        }
-        
     }
     onUp()
     {
@@ -124,5 +109,9 @@ class SceneMain extends Phaser.Scene {
             console.log(error);
             this.counter = 21;
        }
+    }
+
+    printHouse(house) {
+        this.houses.create(house.x, house.y, house.insulation.toString()).setDisplaySize(150,150);
     }
 }
