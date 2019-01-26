@@ -1,9 +1,10 @@
 class PowerPlant {
     constructor() {
-        this.north = new Direction([new House(50, 1, 360, 100)]);
-        this.south = new Direction([new House(50, 2, 360, 620) ]);
-        this.east = new Direction([new House(50, 3, 620, 360) ]);
-        this.west = new Direction([new House(50, 4, 100, 360) ]);
+        this.north = new Direction([new House(50, this.generateHouseIsolation(), 360, 100)]);
+        this.south = new Direction([new House(50, this.generateHouseIsolation(), 360, 620) ]);
+        this.south = new Direction([new House(50, this.generateHouseIsolation(), 360, 620) ]);
+        this.east = new Direction([new House(50, this.generateHouseIsolation(), 620, 360) ]);
+        this.west = new Direction([new House(50, this.generateHouseIsolation(), 100, 360) ]);
 
         this.directions = [ this.north, this.south, this.west, this.east ];
 
@@ -13,6 +14,9 @@ class PowerPlant {
         this.healthIndicator = undefined;
     }
 
+    generateHouseIsolation(){
+        return Math.floor(Math.random() * Math.floor(5))+1
+    }
     getNumberOfOpenDirections() {
         return this.directions.filter(d => d.isOpen).length;
     }
