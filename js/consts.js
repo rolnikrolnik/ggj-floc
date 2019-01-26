@@ -7,6 +7,8 @@ const POWERPLANT_POWER = 11;
 const POWERPLANT_HEALTH_GAIN = 2;
 
 const GREY = 0x6a6e75;
+const WHITE = 0xFFFFFF;
+const BLACK = 0x000000;
 const RED = 0xce2616;
 
 const GAME_SPEED = 50;

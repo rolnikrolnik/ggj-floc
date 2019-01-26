@@ -52,10 +52,14 @@ class SceneMain extends Phaser.Scene {
         this.powerplant.displayWidth = 200;
         this.powerplant.displayHeight = 200;
         
+        this.drawRect(this.add.graphics({x: MOVE_ALL_X + 260 - 1, y: 480 - 2}), WHITE, 202, 14 );
         var termGrey = this.add.graphics({x: MOVE_ALL_X + 260, y: 479});
         this.drawRect(termGrey, GREY, 200, 12);
-        this.plant.healthIndicator = this.add.graphics({x: MOVE_ALL_X + 260, y: 480})
-        this.drawRect(this.plant.healthIndicator, RED, 200, 10)
+        
+        this.plant.healthIndicator = this.add.graphics({x: MOVE_ALL_X + 260, y: 480});
+        
+        this.drawRect(this.plant.healthIndicator, RED, 200, 10);
+        
     }
     create() {
         this.counter = 0;
@@ -74,6 +78,8 @@ class SceneMain extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
     }
     makeGradientLine(x, y) {
+        this.drawRect(this.add.graphics({x: x - 6, y: y - 76}), WHITE, 12, 152 );
+
         const thermometerId = `${x}${y}`;
         this.thermometersId.push(thermometerId);
         var texture = this.textures.createCanvas(thermometerId, 10, 150); // wielkosc canvasa
@@ -138,10 +144,10 @@ class SceneMain extends Phaser.Scene {
     }
 
     updateThermometers(){
-        this.plant.south.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
-        this.plant.north.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
-        this.plant.east.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
-        this.plant.west.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
+        this.plant.south.houses.forEach(h => this.drawRect(h.thermometer, BLACK, 10, 150 - h.temp*150/100));
+        this.plant.north.houses.forEach(h => this.drawRect(h.thermometer, BLACK, 10, 150 - h.temp*150/100));
+        this.plant.east.houses.forEach(h => this.drawRect(h.thermometer, BLACK, 10, 150 - h.temp*150/100));
+        this.plant.west.houses.forEach(h => this.drawRect(h.thermometer, BLACK, 10, 150 - h.temp*150/100));
         this.drawRect(this.plant.healthIndicator, RED, this.plant.health*200/100, 10);
     }
 
