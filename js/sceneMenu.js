@@ -19,7 +19,7 @@ class SceneMenu extends Phaser.Scene {
 
     create ()
     {
-        this.logo = this.add.image(675, 125, "logo");
+        this.logo = this.add.image(675, 110, "logo");
         this.logo.scaleX=1.1;
         this.logo.scaleY=1.1;
 

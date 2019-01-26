@@ -7,11 +7,15 @@ class SceneLeaderboard extends Phaser.Scene {
     
     preload()
     {
-        this.load.image('logo', 'images/cieplutko-logo.png');
+        this.load.image('rankingLogo', 'images/ranking-logo.png');
     }
 
     create ()
     {
+        this.rankingLogo = this.add.image(675, 110, "rankingLogo");
+        this.rankingLogo.scaleX=1.1;
+        this.rankingLogo.scaleY=1.1;
+
         const leaderboard = JSON.parse(localStorage.getItem(LEADERBOARD));
         
         if (!leaderboard) {
@@ -21,9 +25,8 @@ class SceneLeaderboard extends Phaser.Scene {
         }
         
         this.textOptions = {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'};
-
-        this.ranking = this.add.text(600,40,"RANKING", this.textOptions);
-        this.pressSpacebar = this.add.text(380,650,"Press spacebar to continue...", this.textOptions);
+;
+        this.pressSpacebar = this.add.text(380,700,"Press spacebar to continue...", this.textOptions);
 
         this.printScores();
 
@@ -43,8 +46,8 @@ class SceneLeaderboard extends Phaser.Scene {
     }
 
     printPlayer(index) {
-        this.add.text(400, 100 + index * 50, this.getNameText(index), this.textOptions);
-        this.add.text(850,100 + index * 50, this.getScoreText(index), this.textOptions);
+        this.add.text(400,175 + index * 50, this.getNameText(index), this.textOptions);
+        this.add.text(850,175 + index * 50, this.getScoreText(index), this.textOptions);
     }
 
     
