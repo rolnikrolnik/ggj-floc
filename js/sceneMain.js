@@ -2,7 +2,6 @@ class SceneMain extends Phaser.Scene {
     constructor() {
         super('SceneMain');
         Phaser.Scene.call(this, { key: 'sceneMain' });
-        this.counter = 0;
     }
     preload() {
         this.load.image('empty', 'images/houses/empty.png');
@@ -36,6 +35,8 @@ class SceneMain extends Phaser.Scene {
     }
 
     create() {
+        this.counter = 0;
+
         this.plant = new PowerPlant();
         this.powerplant = this.add.image(360, 360, 'powerplant');
         this.powerplant.displayWidth = 200;
@@ -83,11 +84,10 @@ class SceneMain extends Phaser.Scene {
             this.plant.south.toggle();
         }
 
-
         this.counter++;
 
         try {
-            if (this.counter == 50) {
+            if (this.counter == GAME_SPEED) {
 
                 this.plant.update();
 
@@ -97,6 +97,7 @@ class SceneMain extends Phaser.Scene {
             this.counter = 51;
             clearInterval(this.timer);
             localStorage.setItem('currentScore', this.timing);
+            this.scene.start('sceneGameOver');
         }
 
         this.plant.south.houses.forEach(h => h.thermometer.setText(h.temp));
