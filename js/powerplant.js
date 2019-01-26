@@ -26,7 +26,7 @@ class PowerPlant {
     }
 
     updateHealth() {
-        this.health += ((POWERPLANT_HEALTH_GAIN - this.getNumberOfOpenDirections())*5);
+        this.health += ((POWERPLANT_HEALTH_GAIN - this.getNumberOfOpenDirections())*3);
         if (this.health >= 100 || this.health <= 0) {
             throw "GAME OVER";
         }
