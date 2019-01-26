@@ -11,7 +11,6 @@ class PowerPlant {
     }
 
     update() {
-        // get power per direction
         const numberOfOpenDirections = this.directions.filter(d => d.isOpen).length;
         const powerPerDirection = this.power/numberOfOpenDirections;
 
@@ -37,7 +36,8 @@ class Direction {
                 house.decrease();
             }
 
-            console.log(`house temp: ${ house.temp } isOpen: ${ this.isOpen }`)
+            // console.log(`house temp: ${ house.temp } isOpen: ${ this.isOpen }`)
+            //calculate power per house
 
             if (house.temp >= TEMP_MAX || house.temp <= TEMP_MIN) {
                 throw "GAME OVER";

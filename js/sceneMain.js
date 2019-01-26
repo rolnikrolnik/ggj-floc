@@ -42,11 +42,10 @@ class SceneMain extends Phaser.Scene {
         this.powerplant.displayWidth = 200;
         this.powerplant.displayHeight = 200;
 
-        // this.pipes = this.add.group();
-        // this.pipes.create(225, 365, 'rect').setDisplaySize(80, 5);
-        // this.pipes.create(510, 360, 'rect').setDisplaySize(80, 5);
-        // this.pipes.create(360, 215, 'rect').setDisplaySize(5, 80);
-        // this.pipes.create(360, 500, 'rect').setDisplaySize(5, 80);
+        this.timing = 0;
+        this.timer = setInterval(() => this.updateTime(), 1000);
+
+        this.timerDisplay = this.add.text(20, 20, `Day ${1}, hours: ${0}, mins: ${0}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
         this.pipes = this.add.graphics();
 
@@ -75,17 +74,13 @@ class SceneMain extends Phaser.Scene {
     update() {
         if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
             this.plant.west.toggle();
-            console.log('left');
         }
         else if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
             this.plant.east.toggle();
-            console.log('right');
         }
         else if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
             this.plant.north.toggle();
-            console.log('up');
         } else if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
-            console.log('down');
             this.plant.south.toggle();
         }
 
@@ -99,6 +94,9 @@ class SceneMain extends Phaser.Scene {
                 this.counter = 0;
             }
         } catch (error) {
+            this.counter = 51;
+            clearInterval(this.timer);
+            localStorage.setItem('currentScore', this.timing);
             this.scene.start('sceneGameOver');
         }
 
@@ -112,5 +110,14 @@ class SceneMain extends Phaser.Scene {
 
     printHouse(house) {
         this.houses.create(house.x, house.y, house.insulation.toString()).setDisplaySize(150, 150);
+    }
+
+    updateTime() {
+        this.timing++;
+        this.drawTime(calculateTime(this.timing));
+    }
+
+    drawTime(time) {
+        this.timerDisplay.setText(`Day ${time.days}, hours: ${time.hours}, mins: ${time.minutes}`);
     }
 }
