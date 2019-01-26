@@ -9,6 +9,8 @@ class SceneMenu extends Phaser.Scene {
     {
         this.load.image('logo', 'images/cieplutko-logo.png');
         this.load.image('startButton', 'images/startButton.png');
+    
+        this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
 
     create ()
@@ -24,6 +26,11 @@ class SceneMenu extends Phaser.Scene {
         this.button = this.add.image(600, 500, "startButton");
         this.button.setInteractive();
         this.button.on('pointerdown', this.switchToMainScene,this);
+    }
+    update() {
+        if(this.spaceBar.isDown) {
+            this.scene.start('sceneMain');
+        }
     }
     switchToMainScene()
     {
