@@ -25,7 +25,6 @@ class SceneGameOver extends Phaser.Scene {
 
         this.input.keyboard.on('keydown', this.addLetterToName, this);  
 
-        this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     }
 
@@ -34,10 +33,6 @@ class SceneGameOver extends Phaser.Scene {
             this.saveScore();
 
             this.scene.start('sceneLeaderboard');
-        }
-
-        if(this.spaceBar.isDown) {
-            this.scene.start('sceneMenu');
         }
     }
 
