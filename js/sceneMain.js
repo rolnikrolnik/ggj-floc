@@ -74,9 +74,16 @@ class SceneMain extends Phaser.Scene {
 
         this.pipes = this.add.graphics();
         this.printHouses();
-
+        this.makeWungiel();
         this.cursors = this.input.keyboard.createCursorKeys();
     }
+
+    makeWungiel() {
+        this.wungiel = 3;
+        this.wungielDisplay = this.add.text(0, 100, `Chopie, mosz ${this.wungiel} holdy wungla`, {fontFamily:'ZCOOL KuaiLe', color:'#df7919',fontSize:'30px'});
+        this.wungielButtonDisplay = this.add.text(0, 130, `Ciepnij spacje i dopierdziel do pieca`, {fontFamily:'ZCOOL KuaiLe', color:'#df7919',fontSize:'20px'});
+    }
+
     makeGradientLine(x, y) {
         this.drawRect(this.add.graphics({x: x - 6, y: y - 76}), WHITE, 12, 152 );
 
@@ -98,6 +105,15 @@ class SceneMain extends Phaser.Scene {
 
     }
 
+    useWungiel() {
+        if (this.wungiel > 0) {
+            this.wungiel--;    
+            this.plant.health+=30;
+            this.updateWungiel();
+        }
+        
+    }
+
     update() {
         if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
             this.plant.west.toggle();
@@ -109,6 +125,8 @@ class SceneMain extends Phaser.Scene {
             this.plant.north.toggle();
         } else if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
             this.plant.south.toggle();
+        } else if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+            this.useWungiel();
         }
 
         this.counter++;
@@ -158,5 +176,9 @@ class SceneMain extends Phaser.Scene {
 
     drawTime(time) {
         this.timerDisplay.setText(`Dni: ${time.days}, godziny: ${time.hours}`);
+    }
+
+    updateWungiel() {
+        this.wungielDisplay.setText(`Mosz ${this.wungiel} holdy wungla`);
     }
 }

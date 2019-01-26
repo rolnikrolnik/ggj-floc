@@ -15,4 +15,4 @@ const GAME_SPEED = 50;
 
 const CURRENT_SCORE = 'currentScore';
 const LEADERBOARD = 'leaderBoard';
-const MOVE_ALL_X = 300;
+const MOVE_ALL_X = 350;
