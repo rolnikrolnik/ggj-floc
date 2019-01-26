@@ -13,7 +13,9 @@ class SceneMenu extends Phaser.Scene {
         this.load.image('arrow', 'images/arrow2.png');
         this.load.image('powerplantMenu', 'images/houses/powerplant2.png');
 
-    
+        this.load.audio('theme', ['music/menu.wav']);
+
+        
         this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
 
@@ -46,6 +48,9 @@ class SceneMenu extends Phaser.Scene {
 
         this.ranking=this.add.text(50,580,"Dostarczaj cieplutko \n           do dzielnic",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
+        this.music = this.sound.add('theme');
+
+        this.music.play();
     }
     update() {
         if(this.spaceBar.isDown) {

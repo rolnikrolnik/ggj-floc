@@ -12,6 +12,9 @@ class SceneMain extends Phaser.Scene {
         this.load.image('4', 'images/houses/4.png');
         this.load.image('5', 'images/houses/5.png');
         this.thermometersId = [];
+
+        this.load.spritesheet('ice', 'images/ice.png', { frameWidth: 100, frameHeight: 135 });
+        this.load.spritesheet('fire', 'images/fire.png', { frameWidth: 100, frameHeight: 135 });
     }
 
     // drawPipes(north, south, west, east) {
@@ -52,6 +55,7 @@ class SceneMain extends Phaser.Scene {
         this.powerplant.displayWidth = 200;
         this.powerplant.displayHeight = 200;
         
+        this.drawRect(this.add.graphics({x: this.plant.x - 100 - 1, y: this.plant.y + 120 - 2}), WHITE, 202, 14 );
         var termGrey = this.add.graphics({x: this.plant.x - 100, y: this.plant.y + 119});
         this.drawRect(termGrey, GREY, 200, 12);
         this.plant.healthIndicator = this.add.graphics({x: this.plant.x - 100, y: this.plant.y + 120 })
@@ -70,10 +74,39 @@ class SceneMain extends Phaser.Scene {
 
         this.pipes = this.add.graphics();
         this.printHouses();
-
+        this.makeWungiel();
         this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.ice = this.add.sprite(1100,100,'ice');
+        var frameNames= this.anims.generateFrameNumbers('ice');
+        this.anims.create({
+            key: 'animateIce',
+            frames: frameNames,
+            frameRate: 8,
+            repeat: 0 
+        });
+        this.ice.play('animateIce');
+
+        this.fire = this.add.sprite(1200,100,'fire');
+        var frameNames= this.anims.generateFrameNumbers('fire');
+        this.anims.create({
+            key: 'animateFire',
+            frames: frameNames,
+            frameRate: 8,
+            repeat: 0 
+        });
+        this.fire.play('animateFire');
     }
+
+    makeWungiel() {
+        this.wungiel = 3;
+        this.wungielDisplay = this.add.text(0, 100, `Chopie, mosz ${this.wungiel} holdy wungla`, {fontFamily:'ZCOOL KuaiLe', color:'#df7919',fontSize:'30px'});
+        this.wungielButtonDisplay = this.add.text(0, 130, `Ciepnij spacje i dopierdziel do pieca`, {fontFamily:'ZCOOL KuaiLe', color:'#df7919',fontSize:'20px'});
+    }
+
     makeGradientLine(x, y) {
+        this.drawRect(this.add.graphics({x: x - 6, y: y - 76}), WHITE, 12, 152 );
+
         const thermometerId = `${x}${y}`;
         this.thermometersId.push(thermometerId);
         var texture = this.textures.createCanvas(thermometerId, 10, 150); // wielkosc canvasa
@@ -92,6 +125,15 @@ class SceneMain extends Phaser.Scene {
 
     }
 
+    useWungiel() {
+        if (this.wungiel > 0) {
+            this.wungiel--;    
+            this.plant.health+=30;
+            this.updateWungiel();
+        }
+        
+    }
+
     update() {
         if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
             this.plant.west.toggle();
@@ -103,6 +145,8 @@ class SceneMain extends Phaser.Scene {
             this.plant.north.toggle();
         } else if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
             this.plant.south.toggle();
+        } else if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+            this.useWungiel();
         }
 
         this.counter++;
@@ -164,7 +208,7 @@ class SceneMain extends Phaser.Scene {
     }
 
     updateHouse(house){
-        this.drawRect(house.thermometer, GREY, 10, 150 - house.temp*150/100);
+        this.drawRect(house.thermometer, BLACK, 10, 150 - house.temp*150/100);
     }
 
     updateTime() {  
@@ -174,5 +218,9 @@ class SceneMain extends Phaser.Scene {
 
     drawTime(time) {
         this.timerDisplay.setText(`Dni: ${time.days}, godziny: ${time.hours}`);
+    }
+
+    updateWungiel() {
+        this.wungielDisplay.setText(`Mosz ${this.wungiel} holdy wungla`);
     }
 }

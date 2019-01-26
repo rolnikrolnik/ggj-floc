@@ -14,6 +14,9 @@ window.onload=function()
                 debug: false
             }
         },
+        audio: {
+            disableWebAudio: true
+        }
     };
     game = new Phaser.Game(config);
 }
