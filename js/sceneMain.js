@@ -19,10 +19,10 @@ class SceneMain extends Phaser.Scene {
     drawPipes(north, south, west, east) {
         this.pipes.clear();
 
-        this.drawLine(MOVE_ALL_X + 185, 365, MOVE_ALL_X + 265, 365, west ? RED : GREY);
+        this.drawLine(MOVE_ALL_X + 205, 365, MOVE_ALL_X + 265, 365, west ? RED : GREY);
         this.drawLine(MOVE_ALL_X + 470, 365, MOVE_ALL_X + 550, 365, east ? RED : GREY);
         this.drawLine(MOVE_ALL_X + 365, 175, MOVE_ALL_X + 365, 255, north ? RED : GREY);
-        this.drawLine(MOVE_ALL_X + 365, 460, MOVE_ALL_X + 365, 540, south ? RED : GREY);
+        this.drawLine(MOVE_ALL_X + 365, 490, MOVE_ALL_X + 365, 540, south ? RED : GREY);
     }
 
     drawLine(xstart, ystart, xstop, ystop, color) {
@@ -47,13 +47,22 @@ class SceneMain extends Phaser.Scene {
         this.plant.west.houses.forEach(h => this.printHouse(h));
         this.plant.east.houses.forEach(h => this.printHouse(h));
     }
-    create() {
-        this.counter = 0;
 
+    createPlant(){
         this.plant = new PowerPlant();
         this.powerplant = this.add.image(MOVE_ALL_X + 360, 360, 'powerplant');
         this.powerplant.displayWidth = 200;
         this.powerplant.displayHeight = 200;
+        
+        var termGrey = this.add.graphics({x: MOVE_ALL_X + 260, y: 479});
+        this.drawRect(termGrey, GREY, 200, 12);
+        this.plant.healthIndicator = this.add.graphics({x: MOVE_ALL_X + 260, y: 480})
+        this.drawRect(this.plant.healthIndicator, RED, 200, 10)
+    }
+    create() {
+        this.counter = 0;
+
+        this.createPlant();
 
         this.timing = 0;
         this.timer = setInterval(() => this.updateTime(), 1000);
@@ -110,7 +119,7 @@ class SceneMain extends Phaser.Scene {
         } catch (error) {
             this.counter = 51;
             clearInterval(this.timer);
-            localStorage.setItem('currentScore', this.timing);
+            localStorage.setItem(CURRENT_SCORE, this.timing);
             this.scene.start('sceneGameOver');
         }
 
@@ -132,7 +141,7 @@ class SceneMain extends Phaser.Scene {
         this.plant.north.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
         this.plant.east.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
         this.plant.west.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
- 
+        this.drawRect(this.plant.healthIndicator, RED, this.plant.health*200/100, 10);
     }
 
     updateTime() {  
