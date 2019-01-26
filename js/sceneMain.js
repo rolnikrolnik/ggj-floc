@@ -74,7 +74,6 @@ class SceneMain extends Phaser.Scene {
             frameRate: 8,
             repeat: 0 
         });
-        // this.ice.play('animateIceMain');
 
         this.fire = this.add.sprite(15000,100,'fire');
         var frameNames= this.anims.generateFrameNumbers('fire');
@@ -94,7 +93,6 @@ class SceneMain extends Phaser.Scene {
 
     makeGradientLine(x, y) {
         this.drawRect(this.add.graphics({x: x - 6, y: y - 76}), WHITE, 12, 152 );
-
         const thermometerId = `${x}${y}`;
         this.thermometersId.push(thermometerId);
         var texture = this.textures.createCanvas(thermometerId, 10, 150); // wielkosc canvasa
@@ -124,14 +122,18 @@ class SceneMain extends Phaser.Scene {
     update() {
         if (!this.gameOver) {
             if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
+                this.plant.refreshPipes = true;
                 this.plant.west.toggle();
             }
             else if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
+                this.plant.refreshPipes = true;
                 this.plant.east.toggle();
             }
             else if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
+                this.plant.refreshPipes = true;
                 this.plant.north.toggle();
             } else if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
+                this.plant.refreshPipes = true;
                 this.plant.south.toggle();
             } else if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
                 this.useWungiel();
@@ -156,6 +158,13 @@ class SceneMain extends Phaser.Scene {
 
                 this.counter = 0;
             }
+            
+            if (this.plant.refreshPipes){
+                this.pipes.clear();
+                this.updatePipes();
+                this.plant.refreshPipes = false;  
+            }
+            this.drawRect(this.plant.healthIndicator, RED, this.plant.health > 100 ? 150 : this.plant.health*150/100, 10);
         } catch (error) {
             this.counter = GAME_SPEED + 1;
             this.gameOver = true;
@@ -188,33 +197,40 @@ class SceneMain extends Phaser.Scene {
             clearInterval(this.timer);
             localStorage.setItem(CURRENT_SCORE, this.timing);
         }
-        this.pipes.clear();
-        this.updateHouses();
-        this.drawRect(this.plant.healthIndicator, RED, this.plant.health > 100 ? 150 : this.plant.health*150/100, 10);
+
+        this.updateThermometers();
     }
 
     printHouse(house) {
-        var h = this.houses.create(house.x, house.y, house.insulation.toString()).setDisplaySize(150, 150);
-        this.makeGradientLine(house.x + 89, house.y);
+        this.houses.create(house.x, house.y, house.insulation.toString()).setDisplaySize(150, 150);
+        this.makeGradientLine(house.x - 89, house.y);
         
-        house.createThermometer(this.add.graphics({ x: house.x + 84, y: house.y - 75}));
-        this.drawRect(house.thermometer, GREY, 10, 150*house.temp/100);
+        house.createThermometer(this.add.graphics({ x: house.x - 94, y: house.y - 75}));
     }
 
     drawPipe(x, y, angle, type){
         var pipe = this.pipes.create(x, y, type);
+        pipe.setDisplaySize(PIPE_SIZE, PIPE_SIZE);
         pipe.depth = -10
         pipe.angle = angle;
     }
 
-    updateHouses(){
+    updateThermometers(){
+        this.plant.north.houses.forEach(h => this.updateHouse(h));
+        this.plant.south.houses.forEach(h => this.updateHouse(h));
+        this.plant.west.houses.forEach(h => this.updateHouse(h));
+        this.plant.east.houses.forEach(h => this.updateHouse(h));
+    } 
+
+    updatePipes(){
         this.plant.south.houses.forEach(house =>
         {
             var color = this.plant.south.isOpen ? 'red' : 'blue'
 
-            for (var i = this.plant.y; i < house.y; i += PIPE_SIZE)
+            var ypos;
+            for (ypos = this.plant.y; ypos < house.y; ypos += PIPE_SIZE)
             {
-                this.drawPipe(this.plant.x, i, 90, color + '1');
+                this.drawPipe(this.plant.x, ypos, 90, color + '1');
             }
 
             if (house.x - 75 >= this.plant.x - 100 && house.x + 75 <= this.plant.x + 100){
@@ -223,19 +239,19 @@ class SceneMain extends Phaser.Scene {
 
             if (house.x < this.plant.x)
             {
-                this.drawPipe(this.plant.x, house.y, 90, color + '2');
+                this.drawPipe(this.plant.x-2, ypos, 90, color + '2');
 
-                for (var i = this.plant.x-PIPE_SIZE; i >= house.x; i -= PIPE_SIZE)
+                for (var i = this.plant.x-PIPE_SIZE-2; i >= house.x; i -= PIPE_SIZE)
                 {
-                    this.drawPipe(i, house.y, 0, color + '1');
+                    this.drawPipe(i, ypos+2, 0, color + '1');
                 }
             }
             else {
-                this.drawPipe(this.plant.x, house.y, 180, color + '2');
+                this.drawPipe(this.plant.x+2, ypos, 180, color + '2');
 
-                for (var i = this.plant.x+PIPE_SIZE; i <= house.x; i += PIPE_SIZE)
+                for (var i = this.plant.x+PIPE_SIZE+2; i <= house.x; i += PIPE_SIZE)
                 {
-                    this.drawPipe(i, house.y, 0, color + '1');
+                    this.drawPipe(i, ypos+4, 0, color + '1');
                 }
             }   
 
@@ -244,94 +260,102 @@ class SceneMain extends Phaser.Scene {
         this.plant.north.houses.forEach(house =>
         {
             this.updateHouse(house);
-            // this.pipes.lineStyle(5, this.plant.north.isOpen ? RED : GREY, 1.0);
-            // this.pipes.beginPath();
+            var color = this.plant.north.isOpen ? 'red' : 'blue'
 
-            for (var i = house.y; i <= this.plant.y-100; i += PIPE_SIZE)
+            var ypos;
+            for (ypos = this.plant.y; ypos > house.y; ypos -= PIPE_SIZE)
             {
-                // this.pipes.lineTo(this.plant.x, i);
+                this.drawPipe(this.plant.x+2, ypos, 90, color + '1');
             }
 
-            var xstart, xstop;
-            if (house.x < this.plant.x)
-            {
-                xstart = house.x+100;
-                xstop = this.plant.x;
-            }
-            else{
-                xstart = this.plant.x;
-                xstop = house.x-100;
+            if (house.x - 75 >= this.plant.x - 100 && house.x + 75 <= this.plant.x + 100){
+                return;
             }
 
-            // this.pipes.moveTo(xstart, house.y);
+            if (house.x < this.plant.x){
+                this.drawPipe(this.plant.x, ypos, 0, color + '2');
 
-            for (var i = xstart; i <= xstop; i += PIPE_SIZE)
-            {
-                // this.pipes.lineTo(i, house.y);
+                for (var i = this.plant.x-PIPE_SIZE; i >= house.x; i -= PIPE_SIZE)
+                {
+                    this.drawPipe(i, ypos-2, 0, color + '1');
+                }
             }
-    
-            // this.pipes.strokePath();
+            else {
+                this.drawPipe(this.plant.x+5, ypos, -90, color + '2');
+
+                for (var i = this.plant.x+PIPE_SIZE+5; i <= house.x; i += PIPE_SIZE)
+                {
+                    this.drawPipe(i, ypos-2, 0, color + '1');
+                }
+            }   
         });
         this.plant.east.houses.forEach(house =>
         {
             this.updateHouse(house);
-            // this.pipes.lineStyle(5, this.plant.east.isOpen ? RED : GREY, 1.0);
-            // this.pipes.beginPath();
-        
-            for (var i = this.plant.x+100; i <= house.x; i += PIPE_SIZE)
+            var color = this.plant.east.isOpen ? 'red' : 'blue'
+
+            var xpos;
+            for (xpos = this.plant.x; xpos < house.x; xpos += PIPE_SIZE)
             {
-                // this.pipes.lineTo(i, this.plant.y);
-            }
-            
-            var ystart, ystop;
-            if (house.y < this.plant.y)
-            {
-                ystart = house.y+100;
-                ystop = this.plant.y;
-            }
-            else{
-                ystart = this.plant.y;
-                ystop = house.y-100;
+                this.drawPipe(xpos, this.plant.y, 0, color + '1');
             }
 
-            // this.pipes.moveTo(house.x,ystart);
-            for (var i = ystart; i <= ystop; i += PIPE_SIZE)
-            {
-                // this.pipes.lineTo(house.x, i);
+            if (house.y - 75 >= this.plant.y - 100 && house.y + 75 <= this.plant.y + 100){
+                return;
             }
-    
-            // this.pipes.strokePath();
+
+            if (house.y < this.plant.y)
+            {
+                this.drawPipe(xpos, this.plant.y-2, 90, color + '2');
+
+                for (var i = this.plant.y-PIPE_SIZE-2; i >= house.y; i -= PIPE_SIZE)
+                {
+                    this.drawPipe(xpos+2, i, 90, color + '1');
+                }
+            }
+            else {
+                this.drawPipe(xpos, this.plant.y+2, 0, color + '2');
+
+                for (var i = this.plant.y+PIPE_SIZE+2; i <= house.y; i += PIPE_SIZE)
+                {
+                    this.drawPipe(xpos+2, i, 90, color + '1');
+                }
+            }   
         });
         this.plant.west.houses.forEach(house =>
-            {
-                this.updateHouse(house);
-                // this.pipes.lineStyle(5, this.plant.west.isOpen ? RED : GREY, 1.0);
-                // this.pipes.beginPath();
+        {
+            this.updateHouse(house);
             
-                for (var i = house.x; i <= this.plant.x-100; i += PIPE_SIZE)
+            var color = this.plant.west.isOpen ? 'red' : 'blue'
+
+            var xpos;
+            for (xpos = this.plant.x; xpos > house.x; xpos -= PIPE_SIZE)
+            {
+                this.drawPipe(xpos, this.plant.y, 0, color + '1');
+            }
+
+            if (house.y - 75 >= this.plant.y - 100 && house.y + 75 <= this.plant.y + 100){
+                return;
+            }
+
+            if (house.y < this.plant.y)
+            {
+                this.drawPipe(xpos, this.plant.y-4, 180, color + '2');
+
+                for (var i = this.plant.y-PIPE_SIZE-2; i >= house.y; i -= PIPE_SIZE)
                 {
-                    // this.pipes.lineTo(i, this.plant.y);
+                    this.drawPipe(xpos-2, i, 90, color + '1');
                 }
-                
-                var ystart, ystop;
-                if (house.y < this.plant.y)
+            }
+            else {
+                this.drawPipe(xpos, this.plant.y+2, -90, color + '2');
+
+                for (var i = this.plant.y+PIPE_SIZE+2; i <= house.y; i += PIPE_SIZE)
                 {
-                    ystart = house.y+100;
-                    ystop = this.plant.y;
+                    this.drawPipe(xpos-4, i, 90, color + '1');
                 }
-                else{
-                    ystart = this.plant.y;
-                    ystop = house.y-100;
-                }
-    
-                // this.pipes.moveTo(house.x,ystart);
-                for (var i = ystart; i <= ystop; i += PIPE_SIZE)
-                {
-                    // this.pipes.lineTo(house.x, i);
-                }
-        
-                // this.pipes.strokePath();
-            });
+            }   
+        });
     }
 
     updateHouse(house){

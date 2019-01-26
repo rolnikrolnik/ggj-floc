@@ -14,6 +14,7 @@ class PowerPlant {
 
         this.x = MOVE_ALL_X + 350;
         this.y = MOVE_ALL_Y + 350;
+        this.refreshPipes = true;
     }
 
     generateHouseIsolation(){
