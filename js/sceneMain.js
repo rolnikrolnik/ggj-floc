@@ -17,20 +17,42 @@ class SceneMain extends Phaser.Scene {
         this.load.spritesheet('fire', 'images/fire.png', { frameWidth: 100, frameHeight: 135 });
     }
 
-    // drawPipes(north, south, west, east) {
-    //     this.pipes.clear();
+    drawPipes(xstart, ystart, xstop, ystop) {
+        this.pipes.lineStyle(5, RED, 1.0);
+        this.pipes.beginPath();
+        this.pipes.moveTo(xstart, ystart);
 
-    //     this.drawLine(MOVE_ALL_X + 205, MOVE_ALL_Y + 365, MOVE_ALL_X + 265, MOVE_ALL_Y + 365, west ? RED : GREY);
-    //     this.drawLine(MOVE_ALL_X + 470, MOVE_ALL_Y + 365, MOVE_ALL_X + 550, MOVE_ALL_Y + 365, east ? RED : GREY);
-    //     this.drawLine(MOVE_ALL_X + 365, MOVE_ALL_Y + 175, MOVE_ALL_X + 365, MOVE_ALL_Y + 255, north ? RED : GREY);
-    //     this.drawLine(MOVE_ALL_X + 365, MOVE_ALL_Y + 490, MOVE_ALL_X + 365, MOVE_ALL_Y + 540, south ? RED : GREY);
-    // }
+        if (xstart > xstop){
+            var tmp = xstart;
+            xstart = xstop;
+            xstop = tmp;
+        }
+
+        for (var i = xstart; i < xstop; i += PIPE_SIZE)
+        {
+            this.pipes.lineTo(i, ystart);
+        }
+
+        if (ystart > ystop){
+            var tmp = ystart;
+            ystart = ystop;
+            ystop = tmp;
+        }
+
+        for (var i = ystart; i < ystop; i += PIPE_SIZE)
+        {
+            this.pipes.lineTo(xstop, i);
+        }
+
+        this.pipes.closePath();
+        this.pipes.strokePath();
+    }
 
     drawLine(xstart, ystart, xstop, ystop, color) {
         this.pipes.lineStyle(5, color, 1.0);
         this.pipes.beginPath();
-        this.pipes.moveTo(xstart, ystart, -10);
-        this.pipes.lineTo(xstop, ystop, -10);
+        this.pipes.moveTo(xstart, ystart);
+        this.pipes.lineTo(xstop, ystop);
         this.pipes.closePath();
         this.pipes.strokePath();
     }
@@ -186,22 +208,124 @@ class SceneMain extends Phaser.Scene {
         this.plant.south.houses.forEach(house =>
         {
             this.updateHouse(house);
-            this.drawLine(this.plant.x , this.plant.y + 140, house.x, house.y - 75, house.isOpen ? RED : GREY);
+            this.pipes.lineStyle(5, this.plant.south.isOpen ? RED : GREY, 1.0);
+            this.pipes.beginPath();
+
+            for (var i = this.plant.y + 150; i <= house.y; i += PIPE_SIZE)
+            {
+                this.pipes.lineTo(this.plant.x, i);
+            }
+
+            var xstart, xstop;
+            if (house.x < this.plant.x)
+            {
+                xstart = house.x+100;
+                xstop = this.plant.x;
+            }
+            else{
+                xstart = this.plant.x;
+                xstop = house.x-100;
+            }
+
+            this.pipes.moveTo(xstart, house.y);
+
+            for (var i = xstart; i <= xstop; i += PIPE_SIZE)
+            {
+                this.pipes.lineTo(i, house.y);
+            }
+    
+            this.pipes.strokePath();
         });
         this.plant.north.houses.forEach(house =>
         {
             this.updateHouse(house);
-            this.drawLine(this.plant.x , this.plant.y - 100, house.x, house.y + 75, house.isOpen ? RED : GREY);
+            this.pipes.lineStyle(5, this.plant.north.isOpen ? RED : GREY, 1.0);
+            this.pipes.beginPath();
+
+            for (var i = house.y; i <= this.plant.y-100; i += PIPE_SIZE)
+            {
+                this.pipes.lineTo(this.plant.x, i);
+            }
+
+            var xstart, xstop;
+            if (house.x < this.plant.x)
+            {
+                xstart = house.x+100;
+                xstop = this.plant.x;
+            }
+            else{
+                xstart = this.plant.x;
+                xstop = house.x-100;
+            }
+
+            this.pipes.moveTo(xstart, house.y);
+
+            for (var i = xstart; i <= xstop; i += PIPE_SIZE)
+            {
+                this.pipes.lineTo(i, house.y);
+            }
+    
+            this.pipes.strokePath();
         });
         this.plant.east.houses.forEach(house =>
         {
             this.updateHouse(house);
-            this.drawLine(this.plant.x + 100 , this.plant.y, house.x - 75, house.y, house.isOpen ? RED : GREY);
+            this.pipes.lineStyle(5, this.plant.east.isOpen ? RED : GREY, 1.0);
+            this.pipes.beginPath();
+        
+            for (var i = this.plant.x+100; i <= house.x; i += PIPE_SIZE)
+            {
+                this.pipes.lineTo(i, this.plant.y);
+            }
+            
+            var ystart, ystop;
+            if (house.y < this.plant.y)
+            {
+                ystart = house.y+100;
+                ystop = this.plant.y;
+            }
+            else{
+                ystart = this.plant.y;
+                ystop = house.y-100;
+            }
+
+            this.pipes.moveTo(house.x,ystart);
+            for (var i = ystart; i <= ystop; i += PIPE_SIZE)
+            {
+                this.pipes.lineTo(house.x, i);
+            }
+    
+            this.pipes.strokePath();
         });
         this.plant.west.houses.forEach(house =>
             {
                 this.updateHouse(house);
-                this.drawLine(this.plant.x - 100 , this.plant.y, house.x + 100, house.y, house.isOpen ? RED : GREY);
+                this.pipes.lineStyle(5, this.plant.west.isOpen ? RED : GREY, 1.0);
+                this.pipes.beginPath();
+            
+                for (var i = house.x; i <= this.plant.x-100; i += PIPE_SIZE)
+                {
+                    this.pipes.lineTo(i, this.plant.y);
+                }
+                
+                var ystart, ystop;
+                if (house.y < this.plant.y)
+                {
+                    ystart = house.y+100;
+                    ystop = this.plant.y;
+                }
+                else{
+                    ystart = this.plant.y;
+                    ystop = house.y-100;
+                }
+    
+                this.pipes.moveTo(house.x,ystart);
+                for (var i = ystart; i <= ystop; i += PIPE_SIZE)
+                {
+                    this.pipes.lineTo(house.x, i);
+                }
+        
+                this.pipes.strokePath();
             });
         this.drawRect(this.plant.healthIndicator, RED, this.plant.health*200/100, 10);
     }

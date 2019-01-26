@@ -6,7 +6,7 @@ const HEAT_LOSS = 10;
 const POWERPLANT_POWER = 11;
 const POWERPLANT_HEALTH_GAIN = 2;
 
-PIPE_SIZE = 50;
+const PIPE_SIZE = 25;
 
 const GREY = 0x6a6e75;
 const WHITE = 0xFFFFFF;

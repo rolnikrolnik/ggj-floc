@@ -10,6 +10,7 @@ class SceneTutorial extends Phaser.Scene {
         this.load.image('tutorialLogo', 'images/logo/tutorial-logo.png');
         this.load.image('keyboard', 'images/keyboard.png');
         this.load.image('arrow', 'images/arrow2.png');
+        this.load.image('coal', 'images/coal.png');
     }
 
     create ()
@@ -18,14 +19,20 @@ class SceneTutorial extends Phaser.Scene {
         this.logo.scaleX=1.1;
         this.logo.scaleY=1.1;
 
-        this.powerplantMenu = this.add.image(950, 525, "powerplantMenu");
-        this.powerplantMenu.scaleX=0.9;
-        this.powerplantMenu.scaleY=0.65;
+        // this.powerplantMenu = this.add.image(950, 525, "powerplantMenu");
+        // this.powerplantMenu.scaleX=0.9;
+        // this.powerplantMenu.scaleY=0.65;
 
         this.keyboard = this.add.image(200, 350, "keyboard");
         this.keyboard.scaleX=2.5;
         this.keyboard.scaleY=2.5;
         this.keyboard.angle=330;
+
+        this.coal = this.add.image(900, 400, "coal");
+        this.coal.scaleX = 1.3;
+        this.coal.scaleY = 1.3;
+
+        this.coalDesc = this.add.text(700,580,"Spacja dogrzewa!",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
         this.arrow = this.add.image(370, 450, "arrow");
         this.arrow.scaleX=1.5;
