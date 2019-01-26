@@ -6,7 +6,7 @@ class SceneLeaderboard extends Phaser.Scene {
     
     preload()
     {
-        this.load.image('rankingLogo', 'images/ranking-logo.png');
+        this.load.image('rankingLogo', 'images/logo/ranking-logo.png');
     }
 
     create ()

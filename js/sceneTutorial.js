@@ -7,7 +7,7 @@ class SceneTutorial extends Phaser.Scene {
 
     preload()
     {
-        this.load.image('tutorialLogo', 'images/tutorial-logo.png');
+        this.load.image('tutorialLogo', 'images/logo/tutorial-logo.png');
         this.load.image('keyboard', 'images/keyboard.png');
         this.load.image('arrow', 'images/arrow2.png');
     }

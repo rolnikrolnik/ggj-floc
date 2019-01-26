@@ -7,7 +7,7 @@ class SceneMenu extends Phaser.Scene {
 
     preload()
     {
-        this.load.image('logo', 'images/cieplutko-logo.png');
+        this.load.image('logo', 'images/logo/cieplutko-logo.png');
         this.load.image('startButton', 'images/startButton2.png');
         this.load.image('keyboard', 'images/keyboard.png');
         this.load.image('arrow', 'images/arrow2.png');
