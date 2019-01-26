@@ -8,3 +8,6 @@ const GREY = 0x6a6e75;
 const RED = 0xce2616;
 
 const GAME_SPEED = 50;
+
+const CURRENT_SCORE = 'currentScore';
+const LEADERBOARD = 'leaderBoard';

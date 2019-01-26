@@ -96,7 +96,7 @@ class SceneMain extends Phaser.Scene {
         } catch (error) {
             this.counter = 51;
             clearInterval(this.timer);
-            localStorage.setItem('currentScore', this.timing);
+            localStorage.setItem(CURRENT_SCORE, this.timing);
             this.scene.start('sceneGameOver');
         }
 
