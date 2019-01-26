@@ -13,7 +13,7 @@ class SceneMenu extends Phaser.Scene {
         this.load.image('arrow', 'images/arrow2.png');
         this.load.image('powerplantMenu', 'images/houses/powerplant2.png');
 
-    
+        
         this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
 
