@@ -4,12 +4,13 @@ class SceneMenu extends Phaser.Scene {
         Phaser.Scene.call(this, { key: 'sceneMenu' });
         this.counter = 0;
     }
+
     preload()
     {
         this.load.image('logo', 'images/cieplutko-logo.png');
         this.load.image('startButton', 'images/startButton.png');
-
     }
+
     create ()
     {
         this.logo = this.add.image(675, 200, "logo");
@@ -18,11 +19,11 @@ class SceneMenu extends Phaser.Scene {
 
         this.button = this.add.image(600, 500, "startButton");
         this.button.setInteractive();
-        this.button.on('pointerdown',this.switchScene,this);
+        this.button.on('pointerdown', this.switchScene,this);
     }
+
     switchScene()
     {
-        console.log('hej');
         this.scene.start('sceneMain');
     }
 }
