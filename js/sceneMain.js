@@ -41,7 +41,10 @@ class SceneMain extends Phaser.Scene {
         this.powerplant.displayWidth = 200;
         this.powerplant.displayHeight = 200;
 
-        this.timer = this.time.addEvent({ delay: 4000, callback: updateTime, callbackScope: this });
+        this.timing = 0;
+        this.timer = setInterval(() => this.updateTime(), 1000);
+
+        this.timerDisplay = this.add.text(20, 20, `Day ${1}, hours: ${0}, mins: ${0}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
         this.pipes = this.add.graphics();
 
@@ -70,17 +73,13 @@ class SceneMain extends Phaser.Scene {
     update() {
         if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
             this.plant.west.toggle();
-            console.log('left');
         }
         else if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
             this.plant.east.toggle();
-            console.log('right');
         }
         else if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
             this.plant.north.toggle();
-            console.log('up');
         } else if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
-            console.log('down');
             this.plant.south.toggle();
         }
 
@@ -96,6 +95,8 @@ class SceneMain extends Phaser.Scene {
             }
         } catch (error) {
             this.counter = 51;
+            clearInterval(this.timer);
+            localStorage.setItem('currentScore', this.timing);
         }
 
         this.plant.south.houses.forEach(h => h.thermometer.setText(h.temp));
@@ -111,13 +112,11 @@ class SceneMain extends Phaser.Scene {
     }
 
     updateTime() {
-
+        this.timing++;
+        this.drawTime(calculateTime(this.timing));
     }
 
-    calculateTime() {
-        
-    }
-    drawTime(day, hour, minute) {
-        this.add.text(20, 20, `Day ${day}, ${hour}:${minute}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+    drawTime(time) {
+        this.timerDisplay.setText(`Day ${time.days}, hours: ${time.hours}, mins: ${time.minutes}`);
     }
 }
