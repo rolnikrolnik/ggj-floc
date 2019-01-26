@@ -9,6 +9,8 @@ class SceneMenu extends Phaser.Scene {
     {
         this.load.image('logo', 'images/cieplutko-logo.png');
         this.load.image('startButton', 'images/startButton.png');
+        this.load.image('keyboard', 'images/keyboard.png');
+        this.load.image('arrow1', 'images/arrow1.png');
     
         this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
@@ -26,6 +28,14 @@ class SceneMenu extends Phaser.Scene {
         this.button = this.add.image(600, 500, "startButton");
         this.button.setInteractive();
         this.button.on('pointerdown', this.switchToMainScene,this);
+
+        this.keyboard = this.add.image(200, 400, "keyboard");
+        this.keyboard.scaleX=2.5;
+        this.keyboard.scaleY=2.5;
+        this.keyboard.angle=330;
+
+        this.arrow1 = this.add.image(380, 480, "arrow1");
+        this.arrow1.angle=330;
     }
     update() {
         if(this.spaceBar.isDown) {
