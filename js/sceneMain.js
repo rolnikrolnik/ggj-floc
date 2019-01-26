@@ -4,18 +4,17 @@ class SceneMain extends Phaser.Scene {
         Phaser.Scene.call(this, { key: 'sceneMain' });
         this.counter = 0;
     }
-    preload()
-    {
+    preload() {
         this.load.image('empty', 'images/houses/empty.png');
-        this.load.image('powerplant', 'images/houses/powerplant.png');        
+        this.load.image('powerplant', 'images/houses/powerplant.png');
         this.load.image('1', 'images/houses/1.png');
         this.load.image('2', 'images/houses/2.png');
         this.load.image('3', 'images/houses/3.png');
         this.load.image('4', 'images/houses/4.png');
         this.load.image('5', 'images/houses/5.png');
 
-        this.load.spritesheet('square', 'images/square.png', {frameWidth: 50, frameHeight: 50});
-        this.load.spritesheet('rect', 'images/pipe.png', {frameWidth: 100, frameHeight: 50});
+        this.load.spritesheet('square', 'images/square.png', { frameWidth: 50, frameHeight: 50 });
+        this.load.spritesheet('rect', 'images/pipe.png', { frameWidth: 100, frameHeight: 50 });
     }
 
     drawPipes(north, south, west, east) {
@@ -39,81 +38,76 @@ class SceneMain extends Phaser.Scene {
     create() {
         this.plant = new PowerPlant();
         this.powerplant = this.add.image(360, 360, 'powerplant');
-        this.powerplant.displayWidth=200;
-        this.powerplant.displayHeight=200;
+        this.powerplant.displayWidth = 200;
+        this.powerplant.displayHeight = 200;
 
         this.timer = this.time.addEvent({ delay: 4000, callback: updateTime, callbackScope: this });
 
         this.pipes = this.add.graphics();
-        
+
         this.houses = this.add.group();
         this.plant.north.houses.forEach(h => {
             this.printHouse(h);
-            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'}));
+            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, { fontFamily: 'ZCOOL KuaiLe', color: '#df7919', fontSize: '40px' }));
         });
         this.plant.south.houses.forEach(h => {
             this.printHouse(h);
-            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'}));
+            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, { fontFamily: 'ZCOOL KuaiLe', color: '#df7919', fontSize: '40px' }));
         });
         this.plant.west.houses.forEach(h => {
             this.printHouse(h);
-            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'}));
+            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, { fontFamily: 'ZCOOL KuaiLe', color: '#df7919', fontSize: '40px' }));
         });
         this.plant.east.houses.forEach(h => {
             this.printHouse(h);
-            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'}));
+            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, { fontFamily: 'ZCOOL KuaiLe', color: '#df7919', fontSize: '40px' }));
         });
 
         this.cursors = this.input.keyboard.createCursorKeys();
     }
-    
-    
+
+
     update() {
-       if (Phaser.Input.Keyboard.JustDown(this.cursors.left))
-       {
-        this.plant.west.toggle();
-        console.log('left');
-       }
-       else if (Phaser.Input.Keyboard.JustDown(this.cursors.right))
-       {
-        this.plant.east.toggle();
-        console.log('right');
-       }
-       else if (Phaser.Input.Keyboard.JustDown(this.cursors.up))
-       {
-           this.plant.north.toggle();
-        console.log('up');
-       } else if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
-        console.log('down');
-        this.plant.south.toggle();
-       }
+        if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
+            this.plant.west.toggle();
+            console.log('left');
+        }
+        else if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
+            this.plant.east.toggle();
+            console.log('right');
+        }
+        else if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
+            this.plant.north.toggle();
+            console.log('up');
+        } else if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
+            console.log('down');
+            this.plant.south.toggle();
+        }
 
 
-       this.counter++;
-       
-       try {
-        if (this.counter == 50) {
+        this.counter++;
 
-            this.plant.update();
-    
-            this.counter = 0;
-           }
-       }
-       catch(error) {
-            console.log(error);
+        try {
+            if (this.counter == 50) {
+
+                this.plant.update();
+
+                this.counter = 0;
+            }
+        } catch (error) {
             this.counter = 51;
-       }
+        }
 
-       this.plant.south.houses.forEach(h => h.thermometer.setText(h.temp));
-       this.plant.north.houses.forEach(h => h.thermometer.setText(h.temp));
-       this.plant.east.houses.forEach(h => h.thermometer.setText(h.temp));
-       this.plant.west.houses.forEach(h => h.thermometer.setText(h.temp));
+        this.plant.south.houses.forEach(h => h.thermometer.setText(h.temp));
+        this.plant.north.houses.forEach(h => h.thermometer.setText(h.temp));
+        this.plant.east.houses.forEach(h => h.thermometer.setText(h.temp));
+        this.plant.west.houses.forEach(h => h.thermometer.setText(h.temp));
 
-       this.drawPipes(...this.plant.directions.map(direction => direction.isOpen));
+        this.drawPipes(...this.plant.directions.map(direction => direction.isOpen));
     }
 
     printHouse(house) {
-        this.houses.create(house.x, house.y, house.insulation.toString()).setDisplaySize(150,150);
+        this.houses.create(house.x, house.y, house.insulation.toString()).setDisplaySize(150, 150);
     }
 
     updateTime() {
