@@ -14,7 +14,7 @@ class SceneGameOver extends Phaser.Scene {
 
     create ()
     {
-        this.button = this.add.image(100, 200, "empty");
+        this.add.image(675, 372, "empty");
     }
 
     update() {
