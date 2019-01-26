@@ -34,6 +34,12 @@ class SceneMain extends Phaser.Scene {
         this.pipes.strokePath();
     }
 
+    drawRect(rect, color, width, height) {
+        rect.clear();
+        rect.fillStyle(color, 1);
+        rect.fillRect(0, -height, width, height);
+    }
+
     create() {
         this.counter = 0;
 
@@ -46,31 +52,24 @@ class SceneMain extends Phaser.Scene {
         this.timer = setInterval(() => this.updateTime(), 1000);
 
         this.timerDisplay = this.add.text(20, 20, `Day ${1}, hours: ${0}, mins: ${0}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.hsv = Phaser.Display.Color.HSVColorWheel();
 
         this.pipes = this.add.graphics();
 
         this.houses = this.add.group();
-        this.plant.north.houses.forEach(h => {
-            this.printHouse(h);
-            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, { fontFamily: 'ZCOOL KuaiLe', color: '#df7919', fontSize: '40px' }));
-        });
+        this.plant.north.houses.forEach(h => this.printHouse(h));
         this.plant.south.houses.forEach(h => {
             this.printHouse(h);
-            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, { fontFamily: 'ZCOOL KuaiLe', color: '#df7919', fontSize: '40px' }));
         });
         this.plant.west.houses.forEach(h => {
             this.printHouse(h);
-            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, { fontFamily: 'ZCOOL KuaiLe', color: '#df7919', fontSize: '40px' }));
         });
         this.plant.east.houses.forEach(h => {
             this.printHouse(h);
-            h.createThermometer(this.add.text(h.x, h.y + 50, h.temp, { fontFamily: 'ZCOOL KuaiLe', color: '#df7919', fontSize: '40px' }));
         });
 
         this.cursors = this.input.keyboard.createCursorKeys();
     }
-
-
     update() {
         if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
             this.plant.west.toggle();
@@ -100,19 +99,24 @@ class SceneMain extends Phaser.Scene {
             this.scene.start('sceneGameOver');
         }
 
-        this.plant.south.houses.forEach(h => h.thermometer.setText(h.temp));
-        this.plant.north.houses.forEach(h => h.thermometer.setText(h.temp));
-        this.plant.east.houses.forEach(h => h.thermometer.setText(h.temp));
-        this.plant.west.houses.forEach(h => h.thermometer.setText(h.temp));
+        this.plant.south.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
+        this.plant.north.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
+        this.plant.east.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
+        this.plant.west.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
 
         this.drawPipes(...this.plant.directions.map(direction => direction.isOpen));
     }
 
     printHouse(house) {
         this.houses.create(house.x, house.y, house.insulation.toString()).setDisplaySize(150, 150);
+        var termGrey = this.add.graphics({ x: house.x + 89, y: house.y + 75});
+        this.drawRect(termGrey, GREY, 12, 150);
+        
+        house.createThermometer(this.add.graphics({ x: house.x + 90, y: house.y + 75}));
+        this.drawRect(house.thermometer, RED, 10, 150*house.temp/100);
     }
 
-    updateTime() {
+    updateTime() {  
         this.timing++;
         this.drawTime(calculateTime(this.timing));
     }
