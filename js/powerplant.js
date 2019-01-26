@@ -10,6 +10,7 @@ class PowerPlant {
         this.power = POWERPLANT_POWER;
 
         this.health = 50;
+        this.healthIndicator = undefined;
     }
 
     getNumberOfOpenDirections() {
