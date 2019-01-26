@@ -74,8 +74,6 @@ class SceneMain extends Phaser.Scene {
         this.printHouses();
 
         this.cursors = this.input.keyboard.createCursorKeys();
-
-        this.makeGradientLine();
     }
     makeGradientLine(x, y) {
         var texture = this.textures.createCanvas(`${x}${y}`, 10, 150); // wielkosc canvasa
