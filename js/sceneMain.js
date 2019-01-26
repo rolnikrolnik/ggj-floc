@@ -65,7 +65,7 @@ class SceneMain extends Phaser.Scene {
         this.timing = 0;
         this.timer = setInterval(() => this.updateTime(), 1000);
 
-        this.timerDisplay = this.add.text(20, 20, `Dni: ${1}, godziny: ${0}, minuty: ${0}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.timerDisplay = this.add.text(20, 20, `Dni: ${0}, godziny: ${0}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
         this.hsv = Phaser.Display.Color.HSVColorWheel();
 
         this.pipes = this.add.graphics();
@@ -151,6 +151,6 @@ class SceneMain extends Phaser.Scene {
     }
 
     drawTime(time) {
-        this.timerDisplay.setText(`Dni: ${time.days}, godziny: ${time.hours}, minuty: ${time.minutes}`);
+        this.timerDisplay.setText(`Dni: ${time.days}, godziny: ${time.hours}`);
     }
 }
