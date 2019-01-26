@@ -83,7 +83,7 @@ class SceneMain extends Phaser.Scene {
         var grd = context.createLinearGradient(0, 0, 10, 180);    // ERROR LINE
         
         grd.addColorStop(0, '#ff2323');
-        grd.addColorStop(1, '#2b72e5');
+        grd.addColorStop(1, '#2ed3f4');
         
         context.fillStyle = grd;
         context.fillRect(0, 0, game.config.width, game.config.height);
