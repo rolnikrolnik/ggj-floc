@@ -173,8 +173,9 @@ class SceneMain extends Phaser.Scene {
         }
 
         if (this.gameOver) {
-            // if spaca// leaderboard
-            //this.scene.start('sceneGameOver');
+            if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+                this.scene.start('sceneGameOver');
+            }
         }
 
         this.counter++;
@@ -213,7 +214,7 @@ class SceneMain extends Phaser.Scene {
                     break;
             }            
 
-            // SHOW TEXT PRESS SPACEBAR
+            this.pressSpacebar = this.add.text(380,700,"Press spacebar to continue...", {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
             clearInterval(this.timer);
             localStorage.setItem(CURRENT_SCORE, this.timing);
@@ -224,6 +225,8 @@ class SceneMain extends Phaser.Scene {
         this.pipes.clear();
 
         this.updateHouses();
+        
+        this.drawRect(this.plant.healthIndicator, RED, this.plant.health > 100 ? 200 : this.plant.health*200/100, 10);
 
         // this.drawPipes(...this.plant.directions.map(direction => direction.isOpen));
     }
@@ -359,7 +362,6 @@ class SceneMain extends Phaser.Scene {
         
                 this.pipes.strokePath();
             });
-        this.drawRect(this.plant.healthIndicator, RED, this.plant.health*200/100, 10);
     }
 
     updateHouse(house){

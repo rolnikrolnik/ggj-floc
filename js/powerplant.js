@@ -46,6 +46,7 @@ class PowerPlant {
     updateHealth() {
         this.health += ((POWERPLANT_HEALTH_GAIN - this.getNumberOfOpenDirections())*3);
         if (this.health >= 100) {
+            this.plant.health = 100;
             throw { error: PLANT_BURNING };
         }
 
