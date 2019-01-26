@@ -10,7 +10,7 @@ class SceneMenu extends Phaser.Scene {
         this.load.image('logo', 'images/cieplutko-logo.png');
         this.load.image('startButton', 'images/startButton.png');
         this.load.image('keyboard', 'images/keyboard.png');
-        this.load.image('arrow1', 'images/arrow1.png');
+        this.load.image('arrow', 'images/arrow2.png');
     
         this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
@@ -34,9 +34,9 @@ class SceneMenu extends Phaser.Scene {
         this.keyboard.scaleY=2.5;
         this.keyboard.angle=330;
 
-        this.arrow1 = this.add.image(370, 430, "arrow1");
-        this.arrow1.scaleX=1.5;
-        this.arrow1.angle=320;
+        this.arrow = this.add.image(370, 430, "arrow");
+        this.arrow.scaleX=1.5;
+        this.arrow.angle=320;
 
         this.ranking=this.add.text(50,550,"Odblokowuj cieplutko \n         dla dzielnic",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
