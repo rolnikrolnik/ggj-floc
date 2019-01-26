@@ -21,13 +21,13 @@ class SceneMain extends Phaser.Scene {
     drawPipes(north, south, west, east) {
         this.pipes.clear();
 
-        this.drawPipe(185, 365, 265, 365, west ? RED : GREY);
-        this.drawPipe(470, 365, 550, 365, east ? RED : GREY);
-        this.drawPipe(365, 175, 365, 255, north ? RED : GREY);
-        this.drawPipe(365, 460, 365, 540, south ? RED : GREY);
+        this.drawLine(185, 365, 265, 365, west ? RED : GREY);
+        this.drawLine(470, 365, 550, 365, east ? RED : GREY);
+        this.drawLine(365, 175, 365, 255, north ? RED : GREY);
+        this.drawLine(365, 460, 365, 540, south ? RED : GREY);
     }
 
-    drawPipe(xstart, ystart, xstop, ystop, color) {
+    drawLine(xstart, ystart, xstop, ystop, color) {
         this.pipes.lineStyle(5, color, 1.0);
         this.pipes.beginPath();
         this.pipes.moveTo(xstart, ystart);
