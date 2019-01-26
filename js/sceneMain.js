@@ -12,6 +12,9 @@ class SceneMain extends Phaser.Scene {
         this.load.image('4', 'images/houses/4.png');
         this.load.image('5', 'images/houses/5.png');
         this.thermometersId = [];
+
+        this.load.spritesheet('ice', 'images/ice.png', { frameWidth: 100, frameHeight: 135 });
+        this.load.spritesheet('fire', 'images/fire.png', { frameWidth: 100, frameHeight: 135 });
     }
 
     drawPipes(north, south, west, east) {
