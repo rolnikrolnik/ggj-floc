@@ -13,7 +13,13 @@ class SceneLeaderboard extends Phaser.Scene {
     create ()
     {
         const leaderboard = JSON.parse(localStorage.getItem(LEADERBOARD));
-        this.sortedLeaderboard = leaderboard.sort((a, b) => b.score - a.score).slice(0, 10);
+        
+        if (!leaderboard) {
+            this.sortedLeaderboard = [];
+        } else {
+            this.sortedLeaderboard = leaderboard.sort((a, b) => b.score - a.score).slice(0, 10);
+        }
+        
         this.textOptions = {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'};
 
         this.ranking = this.add.text(600,40,"RANKING", this.textOptions);
@@ -31,7 +37,7 @@ class SceneLeaderboard extends Phaser.Scene {
     }
 
     printScores() {
-        for (let index = 0; index < this.sortedLeaderboard.length; index++) {
+        for (let index = 0; index < 10; index++) {
             this.printPlayer(index);
         }
     }
