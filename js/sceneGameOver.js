@@ -7,19 +7,21 @@ class SceneGameOver extends Phaser.Scene {
     
     preload()
     {
-        this.load.image('empty', 'images/houses/empty.png');
+        this.load.image('gameoverLogo', 'images/gameover-logo.png');
     }
 
     create ()
     {
+        this.gameoverLogo = this.add.image(675, 110, "gameoverLogo");
+        this.gameoverLogo.scaleX=1.1;
+        this.gameoverLogo.scaleY=1.1;
+
         this.name = '';
         this.score = localStorage.getItem(CURRENT_SCORE);
         localStorage.removeItem(CURRENT_SCORE);
 
-        this.add.image(675, 372, "empty");
-
-        this.scoreText = this.add.text(20, 20, `Score: ${this.score}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
-        this.nameText = this.add.text(20, 80, `Name: ${this.name}_`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.scoreText = this.add.text(350, 275, `Score: ${this.score}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'170px'});
+        this.nameText = this.add.text(580, 550, `Name: ${this.name}_`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
         this.input.keyboard.on('keydown', this.addLetterToName, this);  
 
