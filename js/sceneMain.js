@@ -40,6 +40,13 @@ class SceneMain extends Phaser.Scene {
         rect.fillRect(0, -height, width, height);
     }
 
+    printHouses(){
+        this.houses = this.add.group();
+        this.plant.north.houses.forEach(h => this.printHouse(h));
+        this.plant.south.houses.forEach(h => this.printHouse(h));
+        this.plant.west.houses.forEach(h => this.printHouse(h));
+        this.plant.east.houses.forEach(h => this.printHouse(h));
+    }
     create() {
         this.counter = 0;
 
@@ -55,18 +62,7 @@ class SceneMain extends Phaser.Scene {
         this.hsv = Phaser.Display.Color.HSVColorWheel();
 
         this.pipes = this.add.graphics();
-
-        this.houses = this.add.group();
-        this.plant.north.houses.forEach(h => this.printHouse(h));
-        this.plant.south.houses.forEach(h => 
-            this.printHouse(h);
-        });
-        this.plant.west.houses.forEach(h => {
-            this.printHouse(h);
-        });
-        this.plant.east.houses.forEach(h => {
-            this.printHouse(h);
-        });
+        this.printHouses();
 
         this.cursors = this.input.keyboard.createCursorKeys();
     }
@@ -99,10 +95,7 @@ class SceneMain extends Phaser.Scene {
             this.scene.start('sceneGameOver');
         }
 
-        this.plant.south.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
-        this.plant.north.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
-        this.plant.east.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
-        this.plant.west.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
+        this.updateThermometers();
 
         this.drawPipes(...this.plant.directions.map(direction => direction.isOpen));
     }
@@ -114,6 +107,14 @@ class SceneMain extends Phaser.Scene {
         
         house.createThermometer(this.add.graphics({ x: house.x + 90, y: house.y + 75}));
         this.drawRect(house.thermometer, RED, 10, 150*house.temp/100);
+    }
+
+    updateThermometers(){
+        this.plant.south.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
+        this.plant.north.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
+        this.plant.east.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
+        this.plant.west.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
+ 
     }
 
     updateTime() {  
