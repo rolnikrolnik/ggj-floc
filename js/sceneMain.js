@@ -131,7 +131,6 @@ class SceneMain extends Phaser.Scene {
             this.plant.health+=30;
             this.updateWungiel();
         }
-        
     }
 
     update() {
