@@ -7,14 +7,14 @@ class SceneTutorial extends Phaser.Scene {
 
     preload()
     {
-        this.load.image('logo', 'images/cieplutko-logo.png');
+        this.load.image('tutorialLogo', 'images/logo/tutorial-logo.png');
         this.load.image('keyboard', 'images/keyboard.png');
         this.load.image('arrow', 'images/arrow2.png');
     }
 
     create ()
     {
-        this.logo = this.add.image(675, 110, "logo");
+        this.logo = this.add.image(675, 110, "tutorialLogo");
         this.logo.scaleX=1.1;
         this.logo.scaleY=1.1;
 
