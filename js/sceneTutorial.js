@@ -23,22 +23,22 @@ class SceneTutorial extends Phaser.Scene {
         // this.powerplantMenu.scaleX=0.9;
         // this.powerplantMenu.scaleY=0.65;
 
-        this.keyboard = this.add.image(200, 350, "keyboard");
+        this.keyboard = this.add.image(300, 350, "keyboard");
         this.keyboard.scaleX=2.5;
         this.keyboard.scaleY=2.5;
         this.keyboard.angle=330;
 
-        this.coal = this.add.image(1150, 400, "coal");
+        this.coal = this.add.image(1050, 400, "coal");
         this.coal.scaleX = 1.3;
         this.coal.scaleY = 1.3;
 
-        this.coalDesc = this.add.text(950,580,"Spacja dogrzewa!",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.coalDesc = this.add.text(850,580,"Spacja dogrzewa!",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
         this.arrow = this.add.image(370, 450, "arrow");
         this.arrow.scaleX=1.5;
         this.arrow.angle=320;
 
-        this.ranking=this.add.text(50,580,"Dostarczaj cieplutko \n           do dzielnic",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.ranking=this.add.text(150,580,"Dostarczaj cieplutko \n           do dzielnic",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
         this.pressSpacebar = this.add.text(380,700,"Press spacebar to continue...", {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
         
