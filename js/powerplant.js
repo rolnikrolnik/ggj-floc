@@ -8,13 +8,28 @@ class PowerPlant {
         this.directions = [ this.north, this.south, this.west, this.east ];
 
         this.power = POWERPLANT_POWER;
+
+        this.health = 50;
+    }
+
+    getNumberOfOpenDirections() {
+        return this.directions.filter(d => d.isOpen).length;;
     }
 
     update() {
-        const numberOfOpenDirections = this.directions.filter(d => d.isOpen).length;
+        const numberOfOpenDirections = this.getNumberOfOpenDirections();
         const powerPerDirection = this.power/numberOfOpenDirections;
 
         this.directions.forEach(direction => direction.update(powerPerDirection));
+        this.updateHealth();
+    }
+
+    updateHealth() {
+        this.health += (POWERPLANT_HEALTH_GAIN - this.getNumberOfOpenDirections());
+        console.log(`Plant health: ${this.health}`);
+        if (this.health >= 100 || this.health <= 0) {
+            throw "GAME OVER";
+        }
     }
 }
 
@@ -50,7 +65,7 @@ class House {
     constructor(temp, insulation, x, y) {
         this.temp = temp;
         this.insulation = insulation;
-        this.x = x;
+        this.x = MOVE_ALL_X + x;
         this.y = y;
     }
 
