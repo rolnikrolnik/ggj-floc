@@ -63,6 +63,7 @@ class SceneMain extends Phaser.Scene {
     }
     create() {
         this.counter = 0;
+        this.gameOver = false;
 
         this.createPlant();
 
@@ -77,7 +78,7 @@ class SceneMain extends Phaser.Scene {
         this.makeWungiel();
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.ice = this.add.sprite(1100,100,'ice');
+        this.ice = this.add.sprite(15000,100,'ice');
         var frameNames= this.anims.generateFrameNumbers('ice');
         this.anims.create({
             key: 'animateIce',
@@ -87,7 +88,7 @@ class SceneMain extends Phaser.Scene {
         });
         this.ice.play('animateIce');
 
-        this.fire = this.add.sprite(1200,100,'fire');
+        this.fire = this.add.sprite(15000,100,'fire');
         var frameNames= this.anims.generateFrameNumbers('fire');
         this.anims.create({
             key: 'animateFire',
@@ -95,7 +96,6 @@ class SceneMain extends Phaser.Scene {
             frameRate: 8,
             repeat: 0 
         });
-        this.fire.play('animateFire');
     }
 
     makeWungiel() {
@@ -134,18 +134,20 @@ class SceneMain extends Phaser.Scene {
     }
 
     update() {
-        if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
-            this.plant.west.toggle();
-        }
-        else if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
-            this.plant.east.toggle();
-        }
-        else if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
-            this.plant.north.toggle();
-        } else if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
-            this.plant.south.toggle();
-        } else if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
-            this.useWungiel();
+        if (!this.gameOver) {
+            if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
+                this.plant.west.toggle();
+            }
+            else if (Phaser.Input.Keyboard.JustDown(this.cursors.right)) {
+                this.plant.east.toggle();
+            }
+            else if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
+                this.plant.north.toggle();
+            } else if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
+                this.plant.south.toggle();
+            } else if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+                this.useWungiel();
+            }
         }
 
         this.counter++;
@@ -158,10 +160,35 @@ class SceneMain extends Phaser.Scene {
                 this.counter = 0;
             }
         } catch (error) {
-            this.counter = 51;
+            this.counter = GAME_SPEED + 1;
+            this.gameOver = true;
+
+            switch (error.error) {
+                case HOUSE_BURNING:
+                    this.fire.x = this.plant.directions[error.index].houses[0].x;
+                    this.fire.y = this.plant.directions[error.index].houses[0].y;
+                    this.fire.play('animateFire');
+                    break;
+                case HOUSE_FROZEN:
+                    this.ice.x = this.plant.directions[error.index].houses[0].x;
+                    this.ice.y = this.plant.directions[error.index].houses[0].y;
+                    this.ice.play('animateIce');
+                    break;
+                case PLANT_BURNING:
+                    this.fire.x = this.plant.x;
+                    this.fire.y = this.plant.y;
+                    this.fire.play('animateFire');
+                    break;
+                case PLANT_FROZEN:
+                    this.ice.x = this.plant.x;
+                    this.ice.y = this.plant.y;
+                    this.ice.play('animateIce');
+                    break;
+            }            
+
             clearInterval(this.timer);
             localStorage.setItem(CURRENT_SCORE, this.timing);
-            this.scene.start('sceneGameOver');
+            //this.scene.start('sceneGameOver');
             this.thermometersId.forEach(thermometerId => {
                 this.textures.remove(thermometerId);
             })
@@ -179,29 +206,28 @@ class SceneMain extends Phaser.Scene {
         
         house.createThermometer(this.add.graphics({ x: house.x + 84, y: house.y - 75}));
         this.drawRect(house.thermometer, GREY, 10, 150*house.temp/100);
-
     }
 
     updateHouses(){
         this.plant.south.houses.forEach(house =>
         {
             this.updateHouse(house);
-            this.drawLine(this.plant.x , this.plant.y + 140, house.x, house.y - 75, house.isOpen ? RED : GREY);
+            this.drawLine(this.plant.x , this.plant.y + 140, house.x, house.y - 75, this.plant.south.isOpen ? RED : GREY);
         });
         this.plant.north.houses.forEach(house =>
         {
             this.updateHouse(house);
-            this.drawLine(this.plant.x , this.plant.y - 100, house.x, house.y + 75, house.isOpen ? RED : GREY);
+            this.drawLine(this.plant.x , this.plant.y - 100, house.x, house.y + 75, this.plant.north.isOpen ? RED : GREY);
         });
         this.plant.east.houses.forEach(house =>
         {
             this.updateHouse(house);
-            this.drawLine(this.plant.x + 100 , this.plant.y, house.x - 75, house.y, house.isOpen ? RED : GREY);
+            this.drawLine(this.plant.x + 100 , this.plant.y, house.x - 75, house.y, this.plant.east.isOpen ? RED : GREY);
         });
         this.plant.west.houses.forEach(house =>
             {
                 this.updateHouse(house);
-                this.drawLine(this.plant.x - 100 , this.plant.y, house.x + 100, house.y, house.isOpen ? RED : GREY);
+                this.drawLine(this.plant.x - 100 , this.plant.y, house.x + 100, house.y, this.plant.west.isOpen ? RED : GREY);
             });
         this.drawRect(this.plant.healthIndicator, RED, this.plant.health*200/100, 10);
     }

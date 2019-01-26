@@ -19,3 +19,9 @@ const CURRENT_SCORE = 'currentScore';
 const LEADERBOARD = 'leaderBoard';
 const MOVE_ALL_X = 350;
 const MOVE_ALL_Y = 0;
+
+const HOUSE_FROZEN = 'house_frozen';
+const HOUSE_BURNING = 'house_burning';
+
+const PLANT_FROZEN = 'plant_frozen';
+const PLANT_BURNING = 'plant_burning';

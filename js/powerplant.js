@@ -32,14 +32,25 @@ class PowerPlant {
         const numberOfOpenDirections = this.getNumberOfOpenDirections();
         const powerPerDirection = this.power/numberOfOpenDirections;
 
-        this.directions.forEach(direction => direction.update(powerPerDirection));
+        for (let index = 0; index < this.directions.length; index++) {
+            try {
+                this.directions[index].update(powerPerDirection);
+            } catch (error) {
+                throw { error, index };
+            }
+        }
+
         this.updateHealth();
     }
 
     updateHealth() {
         this.health += ((POWERPLANT_HEALTH_GAIN - this.getNumberOfOpenDirections())*3);
-        if (this.health >= 100 || this.health <= 0) {
-            throw "GAME OVER";
+        if (this.health >= 100) {
+            throw { error: PLANT_BURNING };
+        }
+
+        if (this.health <= 0) {
+            throw { error: PLANT_FROZEN };
         }
     }
 }
@@ -62,11 +73,12 @@ class Direction {
                 house.decrease();
             }
 
-            // console.log(`house temp: ${ house.temp } isOpen: ${ this.isOpen }`)
-            //calculate power per house
+            if (house.temp <= TEMP_MIN) {
+                throw HOUSE_FROZEN;
+            }
 
-            if (house.temp >= TEMP_MAX || house.temp <= TEMP_MIN) {
-                throw "GAME OVER";
+            if (house.temp >= TEMP_MAX) {
+                throw HOUSE_BURNING;
             }
         });
     }
@@ -90,5 +102,21 @@ class House {
 
     createThermometer(thermometer){
         this.thermometer = thermometer;
+    }
+}
+
+class GameOverException {
+    constructor(exception, houseNumber) {
+        // switch (exception) {
+        //     case HOUSE_FROZEN:
+        //         this.isFrozen
+        //         break;
+        
+        //     default:
+        //         break;
+        // }
+        // this.isFrozen = isFrozen;
+        // this.isPlant = isPlant;
+        // this.houseNumber = houseNumber;
     }
 }
