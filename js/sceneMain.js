@@ -42,11 +42,7 @@ class SceneMain extends Phaser.Scene {
         this.powerplant.displayWidth=200;
         this.powerplant.displayHeight=200;
 
-        // this.pipes = this.add.group();
-        // this.pipes.create(225, 365, 'rect').setDisplaySize(80, 5);
-        // this.pipes.create(510, 360, 'rect').setDisplaySize(80, 5);
-        // this.pipes.create(360, 215, 'rect').setDisplaySize(5, 80);
-        // this.pipes.create(360, 500, 'rect').setDisplaySize(5, 80);
+        this.timer = this.time.addEvent({ delay: 4000, callback: updateTime, callbackScope: this });
 
         this.pipes = this.add.graphics();
         
@@ -118,5 +114,16 @@ class SceneMain extends Phaser.Scene {
 
     printHouse(house) {
         this.houses.create(house.x, house.y, house.insulation.toString()).setDisplaySize(150,150);
+    }
+
+    updateTime() {
+
+    }
+
+    calculateTime() {
+        
+    }
+    drawTime(day, hour, minute) {
+        this.add.text(20, 20, `Day ${day}, ${hour}:${minute}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
     }
 }
