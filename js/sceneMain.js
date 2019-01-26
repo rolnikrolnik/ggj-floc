@@ -172,6 +172,11 @@ class SceneMain extends Phaser.Scene {
             }
         }
 
+        if (this.gameOver) {
+            // if spaca// leaderboard
+            //this.scene.start('sceneGameOver');
+        }
+
         this.counter++;
 
         try {
@@ -208,9 +213,10 @@ class SceneMain extends Phaser.Scene {
                     break;
             }            
 
+            // SHOW TEXT PRESS SPACEBAR
+
             clearInterval(this.timer);
             localStorage.setItem(CURRENT_SCORE, this.timing);
-            //this.scene.start('sceneGameOver');
             this.thermometersId.forEach(thermometerId => {
                 this.textures.remove(thermometerId);
             })
