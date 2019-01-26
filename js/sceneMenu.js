@@ -12,8 +12,6 @@ class SceneMenu extends Phaser.Scene {
         this.load.image('keyboard', 'images/keyboard.png');
         this.load.image('arrow', 'images/arrow2.png');
         this.load.image('powerplantMenu', 'images/houses/powerplant2.png');
-
-        this.load.audio('theme', ['music/menu.wav']);
     }
 
     create ()
@@ -53,10 +51,6 @@ class SceneMenu extends Phaser.Scene {
 
             this.drawChoiceBox();
         }
-
-
-        this.music = this.sound.add('theme');
-        this.music.play();
 
         if (this.spaceBar.isDown) {
             this.switchToScene();

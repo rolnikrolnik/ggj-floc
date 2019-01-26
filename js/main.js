@@ -13,9 +13,6 @@ window.onload=function()
                 gravity: { y: 300 },
                 debug: false
             }
-        },
-        audio: {
-            disableWebAudio: true
         }
     };
     game = new Phaser.Game(config);
