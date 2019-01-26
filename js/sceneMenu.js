@@ -17,6 +17,12 @@ class SceneMenu extends Phaser.Scene {
 
         this.load.spritesheet('ice', 'images/ice.png', { frameWidth: 100, frameHeight: 135 });
         this.load.spritesheet('fire', 'images/fire.png', { frameWidth: 100, frameHeight: 135 });
+    
+        this.load.image('redPipe1', 'images/pipes/red1.png');
+        this.load.image('redPipe2', 'images/pipes/red2.png');
+        this.load.image('redPipe3', 'images/pipes/red3.png');
+        this.load.image('redPipe4', 'images/pipes/red4.png');
+        this.load.image('redPipe5', 'images/pipes/red5.png');
     }
 
     create ()
@@ -30,6 +36,31 @@ class SceneMenu extends Phaser.Scene {
         this.add.text(560,500,"MANUAL",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
         this.pressSpacebar = this.add.text(380,700,"Press spacebar to continue...", {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
+        this.add.image(788, 320, "redPipe1");
+        this.add.image(820, 320, "redPipe1");
+        this.add.image(852, 320, "redPipe1");
+        this.add.image(882, 323, "redPipe2");
+
+        this.add.image(884, 353, "redPipe5");
+        this.add.image(884, 387, "redPipe5");
+
+        this.add.image(788, 420, "redPipe1");
+        this.add.image(820, 420, "redPipe1");
+        this.add.image(852, 420, "redPipe1");
+
+        this.add.image(884, 486, "redPipe5");
+        this.add.image(884, 452, "redPipe5");
+
+        this.add.image(788, 520, "redPipe1");
+        this.add.image(820, 520, "redPipe1");
+        this.add.image(852, 520, "redPipe1");
+        this.add.image(882, 517, "redPipe3");
+
+        this.add.image(884, 420, "redPipe4");
+        this.add.image(916, 420, "redPipe1");
+        this.add.image(948, 420, "redPipe1");
+        this.add.image(980, 420, "redPipe1");
+
         this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -37,8 +68,8 @@ class SceneMenu extends Phaser.Scene {
         this.choiceBox = this.add.graphics();
         this.drawChoiceBox();
 
-        this.add.image(300, 420, "house1").setDisplaySize(150, 150);
-        this.ice = this.add.sprite(300,400,'ice');
+        this.add.image(200, 420, "house1").setDisplaySize(150, 150);
+        this.ice = this.add.sprite(200,400,'ice');
         this.ice.scaleX = 1.3;
         this.ice.scaleY = 1.3;
         var frameNames= this.anims.generateFrameNumbers('ice');
@@ -50,8 +81,8 @@ class SceneMenu extends Phaser.Scene {
         });
         this.ice.play('animateIce');
 
-        this.add.image(1000, 420, "house2").setDisplaySize(150, 150);
-        this.fire = this.add.sprite(1000,400,'fire');
+        this.add.image(1100, 420, "house2").setDisplaySize(150, 150);
+        this.fire = this.add.sprite(1100,400,'fire');
         this.fire.scaleX = 1.3;
         this.fire.scaleY = 1.3;
         var frameNames= this.anims.generateFrameNumbers('fire');
