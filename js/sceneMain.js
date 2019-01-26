@@ -11,9 +11,6 @@ class SceneMain extends Phaser.Scene {
         this.load.image('3', 'images/houses/3.png');
         this.load.image('4', 'images/houses/4.png');
         this.load.image('5', 'images/houses/5.png');
-
-        this.load.spritesheet('square', 'images/square.png', { frameWidth: 50, frameHeight: 50 });
-        this.load.spritesheet('rect', 'images/pipe.png', { frameWidth: 100, frameHeight: 50 });
     }
 
     drawPipes(north, south, west, east) {
@@ -80,8 +77,8 @@ class SceneMain extends Phaser.Scene {
         var context = texture.getContext();
         var grd = context.createLinearGradient(0, 0, 10, 180);    // ERROR LINE
         
-        grd.addColorStop(0, '#ff2323');
-        grd.addColorStop(1, '#2ed3f4');
+        grd.addColorStop(0, '#CE2029');
+        grd.addColorStop(1, '#006bce');
         
         context.fillStyle = grd;
         context.fillRect(0, 0, game.config.width, game.config.height);
