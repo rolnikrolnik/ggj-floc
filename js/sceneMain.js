@@ -37,7 +37,7 @@ class SceneMain extends Phaser.Scene {
     drawRect(rect, color, width, height) {
         rect.clear();
         rect.fillStyle(color, 1);
-        rect.fillRect(0, -height, width, height);
+        rect.fillRect(0, 0, width, height);
     }
 
     printHouses(){
@@ -65,7 +65,26 @@ class SceneMain extends Phaser.Scene {
         this.printHouses();
 
         this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.makeGradientLine();
     }
+    makeGradientLine(x, y) {
+        var texture = this.textures.createCanvas(`${x}${y}`, 10, 150); // wielkosc canvasa
+        var context = texture.getContext();
+        var grd = context.createLinearGradient(0, 0, 10, 180);    // ERROR LINE
+        
+        grd.addColorStop(0, '#ff2323');
+        grd.addColorStop(1, '#2b72e5');
+        
+        context.fillStyle = grd;
+        context.fillRect(0, 0, game.config.width, game.config.height);
+        
+        texture.refresh();
+
+        this.add.image(x, y, `${x}${y}`); // pos
+
+    }
+
     update() {
         if (Phaser.Input.Keyboard.JustDown(this.cursors.left)) {
             this.plant.west.toggle();
@@ -102,18 +121,17 @@ class SceneMain extends Phaser.Scene {
 
     printHouse(house) {
         this.houses.create(house.x, house.y, house.insulation.toString()).setDisplaySize(150, 150);
-        var termGrey = this.add.graphics({ x: house.x + 89, y: house.y + 75});
-        this.drawRect(termGrey, GREY, 12, 150);
+        this.makeGradientLine(house.x + 89, house.y);
         
-        house.createThermometer(this.add.graphics({ x: house.x + 90, y: house.y + 75}));
-        this.drawRect(house.thermometer, RED, 10, 150*house.temp/100);
+        house.createThermometer(this.add.graphics({ x: house.x + 84, y: house.y - 75}));
+        this.drawRect(house.thermometer, GREY, 10, 150*house.temp/100);
     }
 
     updateThermometers(){
-        this.plant.south.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
-        this.plant.north.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
-        this.plant.east.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
-        this.plant.west.houses.forEach(h => this.drawRect(h.thermometer, RED, 10, h.temp*150/100));
+        this.plant.south.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
+        this.plant.north.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
+        this.plant.east.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
+        this.plant.west.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
  
     }
 
