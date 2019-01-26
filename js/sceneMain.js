@@ -11,6 +11,7 @@ class SceneMain extends Phaser.Scene {
         this.load.image('3', 'images/houses/3.png');
         this.load.image('4', 'images/houses/4.png');
         this.load.image('5', 'images/houses/5.png');
+        this.thermometersId = [];
     }
 
     drawPipes(north, south, west, east) {
@@ -73,7 +74,9 @@ class SceneMain extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
     }
     makeGradientLine(x, y) {
-        var texture = this.textures.createCanvas(`${x}${y}`, 10, 150); // wielkosc canvasa
+        const thermometerId = `${x}${y}`;
+        this.thermometersId.push(thermometerId);
+        var texture = this.textures.createCanvas(thermometerId, 10, 150); // wielkosc canvasa
         var context = texture.getContext();
         var grd = context.createLinearGradient(0, 0, 10, 180);    // ERROR LINE
         
@@ -85,7 +88,7 @@ class SceneMain extends Phaser.Scene {
         
         texture.refresh();
 
-        this.add.image(x, y, `${x}${y}`); // pos
+        this.add.image(x, y, thermometerId); // pos
 
     }
 
@@ -116,6 +119,9 @@ class SceneMain extends Phaser.Scene {
             clearInterval(this.timer);
             localStorage.setItem(CURRENT_SCORE, this.timing);
             this.scene.start('sceneGameOver');
+            this.thermometersId.forEach(thermometerId => {
+                this.textures.remove(thermometerId);
+            })
         }
 
         this.updateThermometers();
