@@ -50,7 +50,7 @@ class House {
     constructor(temp, insulation, x, y) {
         this.temp = temp;
         this.insulation = insulation;
-        this.x = x;
+        this.x = MOVE_ALL_X + x;
         this.y = y;
     }
 

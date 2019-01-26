@@ -19,10 +19,10 @@ class SceneMain extends Phaser.Scene {
     drawPipes(north, south, west, east) {
         this.pipes.clear();
 
-        this.drawLine(185, 365, 265, 365, west ? RED : GREY);
-        this.drawLine(470, 365, 550, 365, east ? RED : GREY);
-        this.drawLine(365, 175, 365, 255, north ? RED : GREY);
-        this.drawLine(365, 460, 365, 540, south ? RED : GREY);
+        this.drawLine(MOVE_ALL_X + 185, 365, MOVE_ALL_X + 265, 365, west ? RED : GREY);
+        this.drawLine(MOVE_ALL_X + 470, 365, MOVE_ALL_X + 550, 365, east ? RED : GREY);
+        this.drawLine(MOVE_ALL_X + 365, 175, MOVE_ALL_X + 365, 255, north ? RED : GREY);
+        this.drawLine(MOVE_ALL_X + 365, 460, MOVE_ALL_X + 365, 540, south ? RED : GREY);
     }
 
     drawLine(xstart, ystart, xstop, ystop, color) {
@@ -38,14 +38,14 @@ class SceneMain extends Phaser.Scene {
         this.counter = 0;
 
         this.plant = new PowerPlant();
-        this.powerplant = this.add.image(360, 360, 'powerplant');
+        this.powerplant = this.add.image(MOVE_ALL_X + 360, 360, 'powerplant');
         this.powerplant.displayWidth = 200;
         this.powerplant.displayHeight = 200;
 
         this.timing = 0;
         this.timer = setInterval(() => this.updateTime(), 1000);
 
-        this.timerDisplay = this.add.text(20, 20, `Day ${1}, hours: ${0}, mins: ${0}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.timerDisplay = this.add.text(20, 20, `Dni: ${1}, godziny: ${0}, minuty: ${0}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
         this.pipes = this.add.graphics();
 
@@ -97,7 +97,7 @@ class SceneMain extends Phaser.Scene {
             this.counter = 51;
             clearInterval(this.timer);
             localStorage.setItem('currentScore', this.timing);
-            this.scene.start('sceneGameOver');
+            // this.scene.start('sceneGameOver');
         }
 
         this.plant.south.houses.forEach(h => h.thermometer.setText(h.temp));
@@ -118,6 +118,6 @@ class SceneMain extends Phaser.Scene {
     }
 
     drawTime(time) {
-        this.timerDisplay.setText(`Day ${time.days}, hours: ${time.hours}, mins: ${time.minutes}`);
+        this.timerDisplay.setText(`Dni: ${time.days}, godziny: ${time.hours}, minuty: ${time.minutes}`);
     }
 }
