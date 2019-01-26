@@ -2,7 +2,6 @@ class SceneLeaderboard extends Phaser.Scene {
     constructor() {
         super('SceneLeaderboard');
         Phaser.Scene.call(this, { key: 'sceneLeaderboard' });
-        this.counter = 0;
     }
     
     preload()

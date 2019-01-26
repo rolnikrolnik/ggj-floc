@@ -12,11 +12,6 @@ class SceneMenu extends Phaser.Scene {
         this.load.image('keyboard', 'images/keyboard.png');
         this.load.image('arrow', 'images/arrow2.png');
         this.load.image('powerplantMenu', 'images/houses/powerplant2.png');
-
-        this.load.audio('theme', ['music/menu.wav']);
-
-        
-        this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     }
 
     create ()
@@ -25,44 +20,63 @@ class SceneMenu extends Phaser.Scene {
         this.logo.scaleX=1.1;
         this.logo.scaleY=1.1;
 
-        this.powerplantMenu = this.add.image(950, 525, "powerplantMenu");
-        this.powerplantMenu.scaleX=0.9;
-        this.powerplantMenu.scaleY=0.65;
+        this.add.text(590,300,"GRAJ",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.add.text(550,400,"RANKING",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.add.text(560,500,"MANUAL",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.pressSpacebar = this.add.text(380,700,"Press spacebar to continue...", {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
-        this.ranking=this.add.text(1020,650,"RANKING",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
-        this.ranking.setInteractive();
-        this.ranking.on('pointerdown', this.switchToLeaderboardScene,this);
+        this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.cursors = this.input.keyboard.createCursorKeys();
 
-        this.button = this.add.image(950, 310, "startButton");
-        this.button.setInteractive();
-        this.button.on('pointerdown', this.switchToMainScene,this);
-
-        this.keyboard = this.add.image(200, 350, "keyboard");
-        this.keyboard.scaleX=2.5;
-        this.keyboard.scaleY=2.5;
-        this.keyboard.angle=330;
-
-        this.arrow = this.add.image(370, 450, "arrow");
-        this.arrow.scaleX=1.5;
-        this.arrow.angle=320;
-
-        this.ranking=this.add.text(50,580,"Dostarczaj cieplutko \n           do dzielnic",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
-
-        this.music = this.sound.add('theme');
-
-        this.music.play();
+        this.choice = 0;
+        this.choiceBox = this.add.graphics();
+        this.drawChoiceBox();
     }
+
     update() {
-        if(this.spaceBar.isDown) {
-            this.scene.start('sceneMain');
+        if (Phaser.Input.Keyboard.JustDown(this.cursors.up)) {
+            if (this.choice == 0) {
+                this.choice = 2;
+            } else {
+                this.choice--;
+            }
+
+            this.drawChoiceBox();
+        } else if (Phaser.Input.Keyboard.JustDown(this.cursors.down)) {
+            if (this.choice == 2) {
+                this.choice = 0;
+            } else {
+                this.choice++;
+            }
+
+            this.drawChoiceBox();
+        }
+
+        if (this.spaceBar.isDown) {
+            this.switchToScene();
         }
     }
-    switchToMainScene()
+
+    switchToScene()
     {
-        this.scene.start('sceneMain');
+        switch (this.choice) {
+            case 0:
+                this.scene.start('sceneMain');
+                break;
+            case 1:
+                this.scene.start('sceneLeaderboard');
+                break;
+            case 2:
+                this.scene.start('sceneTutorial');
+                break;
+            default:
+                break;
+        }
     }
-    switchToLeaderboardScene()
-    {
-        this.scene.start('sceneLeaderboard');
+
+    drawChoiceBox() {
+        this.choiceBox.clear();
+        this.choiceBox.lineStyle(3, 0xdf7919, 1);
+        this.choiceBox.strokeRect(520, 285 + this.choice * 100, 250, 70);
     }
 }

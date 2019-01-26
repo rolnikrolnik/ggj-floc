@@ -22,6 +22,8 @@ class SceneGameOver extends Phaser.Scene {
 
         this.scoreText = this.add.text(350, 275, `Score: ${this.score}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'170px'});
         this.nameText = this.add.text(580, 550, `Name: ${this.name}_`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        
+        this.add.text(360,700,"Type your name and click ENTER...", {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
         this.input.keyboard.on('keydown', this.addLetterToName, this);  
 
@@ -37,7 +39,7 @@ class SceneGameOver extends Phaser.Scene {
     }
 
     addLetterToName(event) {
-        if (event.key == 'Backspace' && this.name.length > 0) {
+        if (event.key == 'Backspace' && this.name.length > 0) {6
             this.name = this.name.substring(0, this.name.length - 1).toUpperCase();
         }
 
