@@ -69,17 +69,17 @@ class SceneMain extends Phaser.Scene {
         this.ice = this.add.sprite(15000,100,'ice');
         var frameNames= this.anims.generateFrameNumbers('ice');
         this.anims.create({
-            key: 'animateIce',
+            key: 'animateIceMain',
             frames: frameNames,
             frameRate: 8,
             repeat: 0 
         });
-        this.ice.play('animateIce');
+        // this.ice.play('animateIceMain');
 
         this.fire = this.add.sprite(15000,100,'fire');
         var frameNames= this.anims.generateFrameNumbers('fire');
         this.anims.create({
-            key: 'animateFire',
+            key: 'animateFireMain',
             frames: frameNames,
             frameRate: 8,
             repeat: 0 
@@ -140,6 +140,9 @@ class SceneMain extends Phaser.Scene {
 
         if (this.gameOver) {
             if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+                this.thermometersId.forEach(thermometerId => {
+                    this.textures.remove(thermometerId);
+                })
                 this.scene.start('sceneGameOver');
             }
         }
@@ -161,22 +164,22 @@ class SceneMain extends Phaser.Scene {
                 case HOUSE_BURNING:
                     this.fire.x = this.plant.directions[error.index].houses[0].x;
                     this.fire.y = this.plant.directions[error.index].houses[0].y;
-                    this.fire.play('animateFire');
+                    this.fire.play('animateFireMain');
                     break;
                 case HOUSE_FROZEN:
                     this.ice.x = this.plant.directions[error.index].houses[0].x;
                     this.ice.y = this.plant.directions[error.index].houses[0].y;
-                    this.ice.play('animateIce');
+                    this.ice.play('animateIceMain');
                     break;
                 case PLANT_BURNING:
                     this.fire.x = this.plant.x;
                     this.fire.y = this.plant.y;
-                    this.fire.play('animateFire');
+                    this.fire.play('animateFireMain');
                     break;
                 case PLANT_FROZEN:
                     this.ice.x = this.plant.x;
                     this.ice.y = this.plant.y;
-                    this.ice.play('animateIce');
+                    this.ice.play('animateIceMain');
                     break;
             }            
 
@@ -184,9 +187,6 @@ class SceneMain extends Phaser.Scene {
 
             clearInterval(this.timer);
             localStorage.setItem(CURRENT_SCORE, this.timing);
-            this.thermometersId.forEach(thermometerId => {
-                this.textures.remove(thermometerId);
-            })
         }
         this.pipes.clear();
         this.updateHouses();
