@@ -97,7 +97,7 @@ class SceneMain extends Phaser.Scene {
             this.counter = 51;
             clearInterval(this.timer);
             localStorage.setItem('currentScore', this.timing);
-            // this.scene.start('sceneGameOver');
+            this.scene.start('sceneGameOver');
         }
 
         this.plant.south.houses.forEach(h => h.thermometer.setText(h.temp));
