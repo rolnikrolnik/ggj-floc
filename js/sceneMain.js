@@ -79,6 +79,26 @@ class SceneMain extends Phaser.Scene {
         this.printHouses();
         this.makeWungiel();
         this.cursors = this.input.keyboard.createCursorKeys();
+
+        this.ice = this.add.sprite(1100,100,'ice');
+        var frameNames= this.anims.generateFrameNumbers('ice');
+        this.anims.create({
+            key: 'animateIce',
+            frames: frameNames,
+            frameRate: 8,
+            repeat: 0 
+        });
+        this.ice.play('animateIce');
+
+        this.fire = this.add.sprite(1200,100,'fire');
+        var frameNames= this.anims.generateFrameNumbers('fire');
+        this.anims.create({
+            key: 'animateFire',
+            frames: frameNames,
+            frameRate: 8,
+            repeat: 0 
+        });
+        this.fire.play('animateFire');
     }
 
     makeWungiel() {
