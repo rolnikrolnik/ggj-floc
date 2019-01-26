@@ -1,17 +1,16 @@
 class SceneLeaderboard extends Phaser.Scene {
     constructor() {
         super('SceneLeaderboard');
-        Phaser.Scene.call(this, { key: 'SceneLeaderboard' });
+        Phaser.Scene.call(this, { key: 'sceneLeaderboard' });
         this.counter = 0;
     }
     
     preload()
     {
-        this.load.image('empty', 'images/houses/empty.png');
     }
 
     create ()
     {
-        this.button = this.add.image(100, 200, "empty");
+        this.ranking=this.add.text(500,600,"RANKING",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
     }
 }
