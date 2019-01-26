@@ -28,11 +28,11 @@ class SceneTutorial extends Phaser.Scene {
         this.keyboard.scaleY=2.5;
         this.keyboard.angle=330;
 
-        this.coal = this.add.image(900, 400, "coal");
+        this.coal = this.add.image(1150, 400, "coal");
         this.coal.scaleX = 1.3;
         this.coal.scaleY = 1.3;
 
-        this.coalDesc = this.add.text(700,580,"Spacja dogrzewa!",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.coalDesc = this.add.text(950,580,"Spacja dogrzewa!",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
         this.arrow = this.add.image(370, 450, "arrow");
         this.arrow.scaleX=1.5;
