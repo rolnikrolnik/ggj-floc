@@ -13,17 +13,24 @@ class SceneMenu extends Phaser.Scene {
 
     create ()
     {
-        this.logo = this.add.image(675, 200, "logo");
+        this.logo = this.add.image(675, 125, "logo");
         this.logo.scaleX=1.1;
         this.logo.scaleY=1.1;
 
+        this.ranking=this.add.text(500,600,"RANKING",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.ranking.setInteractive();
+        this.ranking.on('pointerdown', this.switchToLeaderboardScene,this);
+
         this.button = this.add.image(600, 500, "startButton");
         this.button.setInteractive();
-        this.button.on('pointerdown', this.switchScene,this);
+        this.button.on('pointerdown', this.switchToMainScene,this);
     }
-
-    switchScene()
+    switchToMainScene()
     {
         this.scene.start('sceneMain');
+    }
+    switchToLeaderboardScene()
+    {
+        this.scene.start('sceneLeaderboard');
     }
 }
