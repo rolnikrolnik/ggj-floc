@@ -14,20 +14,20 @@ class SceneMain extends Phaser.Scene {
         this.thermometersId = [];
     }
 
-    drawPipes(north, south, west, east) {
-        this.pipes.clear();
+    // drawPipes(north, south, west, east) {
+    //     this.pipes.clear();
 
-        this.drawLine(MOVE_ALL_X + 205, 365, MOVE_ALL_X + 265, 365, west ? RED : GREY);
-        this.drawLine(MOVE_ALL_X + 470, 365, MOVE_ALL_X + 550, 365, east ? RED : GREY);
-        this.drawLine(MOVE_ALL_X + 365, 175, MOVE_ALL_X + 365, 255, north ? RED : GREY);
-        this.drawLine(MOVE_ALL_X + 365, 490, MOVE_ALL_X + 365, 540, south ? RED : GREY);
-    }
+    //     this.drawLine(MOVE_ALL_X + 205, MOVE_ALL_Y + 365, MOVE_ALL_X + 265, MOVE_ALL_Y + 365, west ? RED : GREY);
+    //     this.drawLine(MOVE_ALL_X + 470, MOVE_ALL_Y + 365, MOVE_ALL_X + 550, MOVE_ALL_Y + 365, east ? RED : GREY);
+    //     this.drawLine(MOVE_ALL_X + 365, MOVE_ALL_Y + 175, MOVE_ALL_X + 365, MOVE_ALL_Y + 255, north ? RED : GREY);
+    //     this.drawLine(MOVE_ALL_X + 365, MOVE_ALL_Y + 490, MOVE_ALL_X + 365, MOVE_ALL_Y + 540, south ? RED : GREY);
+    // }
 
     drawLine(xstart, ystart, xstop, ystop, color) {
         this.pipes.lineStyle(5, color, 1.0);
         this.pipes.beginPath();
-        this.pipes.moveTo(xstart, ystart);
-        this.pipes.lineTo(xstop, ystop);
+        this.pipes.moveTo(xstart, ystart, -10);
+        this.pipes.lineTo(xstop, ystop, -10);
         this.pipes.closePath();
         this.pipes.strokePath();
     }
@@ -48,13 +48,13 @@ class SceneMain extends Phaser.Scene {
 
     createPlant(){
         this.plant = new PowerPlant();
-        this.powerplant = this.add.image(MOVE_ALL_X + 360, 360, 'powerplant');
+        this.powerplant = this.add.image(this.plant.x, this.plant.y, 'powerplant');
         this.powerplant.displayWidth = 200;
         this.powerplant.displayHeight = 200;
         
-        var termGrey = this.add.graphics({x: MOVE_ALL_X + 260, y: 479});
+        var termGrey = this.add.graphics({x: this.plant.x - 100, y: this.plant.y + 119});
         this.drawRect(termGrey, GREY, 200, 12);
-        this.plant.healthIndicator = this.add.graphics({x: MOVE_ALL_X + 260, y: 480})
+        this.plant.healthIndicator = this.add.graphics({x: this.plant.x - 100, y: this.plant.y + 120 })
         this.drawRect(this.plant.healthIndicator, RED, 200, 10)
     }
     create() {
@@ -123,10 +123,11 @@ class SceneMain extends Phaser.Scene {
                 this.textures.remove(thermometerId);
             })
         }
+        this.pipes.clear();
 
-        this.updateThermometers();
+        this.updateHouses();
 
-        this.drawPipes(...this.plant.directions.map(direction => direction.isOpen));
+        // this.drawPipes(...this.plant.directions.map(direction => direction.isOpen));
     }
 
     printHouse(house) {
@@ -135,14 +136,35 @@ class SceneMain extends Phaser.Scene {
         
         house.createThermometer(this.add.graphics({ x: house.x + 84, y: house.y - 75}));
         this.drawRect(house.thermometer, GREY, 10, 150*house.temp/100);
+
     }
 
-    updateThermometers(){
-        this.plant.south.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
-        this.plant.north.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
-        this.plant.east.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
-        this.plant.west.houses.forEach(h => this.drawRect(h.thermometer, GREY, 10, 150 - h.temp*150/100));
+    updateHouses(){
+        this.plant.south.houses.forEach(house =>
+        {
+            this.updateHouse(house);
+            this.drawLine(this.plant.x , this.plant.y + 140, house.x, house.y - 75, house.isOpen ? RED : GREY);
+        });
+        this.plant.north.houses.forEach(house =>
+        {
+            this.updateHouse(house);
+            this.drawLine(this.plant.x , this.plant.y - 100, house.x, house.y + 75, house.isOpen ? RED : GREY);
+        });
+        this.plant.east.houses.forEach(house =>
+        {
+            this.updateHouse(house);
+            this.drawLine(this.plant.x + 100 , this.plant.y, house.x - 75, house.y, house.isOpen ? RED : GREY);
+        });
+        this.plant.west.houses.forEach(house =>
+            {
+                this.updateHouse(house);
+                this.drawLine(this.plant.x - 100 , this.plant.y, house.x + 100, house.y, house.isOpen ? RED : GREY);
+            });
         this.drawRect(this.plant.healthIndicator, RED, this.plant.health*200/100, 10);
+    }
+
+    updateHouse(house){
+        this.drawRect(house.thermometer, GREY, 10, 150 - house.temp*150/100);
     }
 
     updateTime() {  

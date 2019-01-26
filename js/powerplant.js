@@ -1,10 +1,9 @@
 class PowerPlant {
     constructor() {
-        this.north = new Direction([new House(50, this.generateHouseIsolation(), 360, 100)]);
-        this.south = new Direction([new House(50, this.generateHouseIsolation(), 360, 620) ]);
-        this.south = new Direction([new House(50, this.generateHouseIsolation(), 360, 620) ]);
-        this.east = new Direction([new House(50, this.generateHouseIsolation(), 620, 360) ]);
-        this.west = new Direction([new House(50, this.generateHouseIsolation(), 100, 360) ]);
+        this.north = new Direction([new House(50, this.generateHouseIsolation(), this.generateHousePosition(150), 150)]);
+        this.south = new Direction([new House(50, this.generateHouseIsolation(), this.generateHousePosition(150), 600) ]);
+        this.east = new Direction([new House(50, this.generateHouseIsolation(), 700, this.generateHousePosition(150)) ]);
+        this.west = new Direction([new House(50, this.generateHouseIsolation(), 0, this.generateHousePosition(150)) ]);
 
         this.directions = [ this.north, this.south, this.west, this.east ];
 
@@ -12,11 +11,19 @@ class PowerPlant {
 
         this.health = 50;
         this.healthIndicator = undefined;
+
+        this.x = MOVE_ALL_X + 360;
+        this.y = MOVE_ALL_Y + 360;
     }
 
     generateHouseIsolation(){
         return Math.floor(Math.random() * Math.floor(5))+1
     }
+
+    generateHousePosition(min){
+        return min+(Math.floor(Math.random() * Math.floor(6)))*PIPE_SIZE;
+    }
+
     getNumberOfOpenDirections() {
         return this.directions.filter(d => d.isOpen).length;
     }
@@ -70,7 +77,7 @@ class House {
         this.temp = temp;
         this.insulation = insulation;
         this.x = MOVE_ALL_X + x;
-        this.y = y;
+        this.y = MOVE_ALL_Y + y;
     }
 
     decrease() {
