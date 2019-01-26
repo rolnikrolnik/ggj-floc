@@ -1,9 +1,9 @@
 class PowerPlant {
     constructor() {
-        this.north = new Direction([new House(100, 1, 360, 100)]);
-        this.south = new Direction([new House(100, 2, 360, 620) ]);
-        this.east = new Direction([new House(100, 3, 620, 360) ]);
-        this.west = new Direction([new House(100, 4, 100, 360) ]);
+        this.north = new Direction([new House(50, 1, 360, 100)]);
+        this.south = new Direction([new House(50, 2, 360, 620) ]);
+        this.east = new Direction([new House(50, 3, 620, 360) ]);
+        this.west = new Direction([new House(50, 4, 100, 360) ]);
 
         this.directions = [ this.north, this.south, this.west, this.east ];
 
@@ -70,7 +70,7 @@ class House {
     }
 
     decrease() {
-        this.temp = this.temp - (HEAT_LOSS - this.insulation);
+        this.temp = this.temp - (HEAT_LOSS - (this.insulation*1.75));
     }
 
     increase(power) {
