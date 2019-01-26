@@ -3,8 +3,8 @@ window.onload=function()
 {
     var config = {
         type: Phaser.AUTO,
-        width: 1280,
-        height: 720,
+        width: 1350,
+        height: 745,
         parent: 'phaser-game',
         scene: [SceneMenu, SceneMain, SceneGameOver],
         physics: {
