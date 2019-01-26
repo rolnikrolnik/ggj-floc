@@ -7,7 +7,7 @@ class SceneLeaderboard extends Phaser.Scene {
     
     preload()
     {
-
+        this.load.image('logo', 'images/cieplutko-logo.png');
     }
 
     create ()

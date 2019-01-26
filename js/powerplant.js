@@ -14,7 +14,7 @@ class PowerPlant {
     }
 
     getNumberOfOpenDirections() {
-        return this.directions.filter(d => d.isOpen).length;;
+        return this.directions.filter(d => d.isOpen).length;
     }
 
     update() {
@@ -26,8 +26,7 @@ class PowerPlant {
     }
 
     updateHealth() {
-        this.health += (POWERPLANT_HEALTH_GAIN - this.getNumberOfOpenDirections());
-        console.log(`Plant health: ${this.health}`);
+        this.health += ((POWERPLANT_HEALTH_GAIN - this.getNumberOfOpenDirections())*5);
         if (this.health >= 100 || this.health <= 0) {
             throw "GAME OVER";
         }
