@@ -7,12 +7,17 @@ class SceneMenu extends Phaser.Scene {
 
     preload()
     {
+        this.load.image('logo', 'images/cieplutko-logo.png');
         this.load.image('startButton', 'images/startButton.png');
     }
 
     create ()
     {
-        this.button = this.add.image(100, 200, "startButton");
+        this.logo = this.add.image(675, 200, "logo");
+        this.logo.scaleX=1.1;
+        this.logo.scaleY=1.1;
+
+        this.button = this.add.image(600, 500, "startButton");
         this.button.setInteractive();
         this.button.on('pointerdown', this.switchScene,this);
     }
