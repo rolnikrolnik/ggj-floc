@@ -1,7 +1,7 @@
-class MenuScene extends Phaser.Scene {
+class SceneMenu extends Phaser.Scene {
     constructor() {
-        super('MenuScene');
-        Phaser.Scene.call(this, { key: 'menuScene' });
+        super('SceneMenu');
+        Phaser.Scene.call(this, { key: 'sceneMenu' });
         this.counter = 0;
     }
     preload()
