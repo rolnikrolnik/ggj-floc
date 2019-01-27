@@ -72,7 +72,7 @@ class SceneMain extends Phaser.Scene {
             key: 'animateIceMain',
             frames: frameNames,
             frameRate: 8,
-            repeat: 0 
+            repeat: -1 
         });
 
         this.fire = this.add.sprite(15000,100,'fire');
@@ -81,7 +81,7 @@ class SceneMain extends Phaser.Scene {
             key: 'animateFireMain',
             frames: frameNames,
             frameRate: 8,
-            repeat: 0 
+            repeat: -1 
         });
     }
 
@@ -201,7 +201,9 @@ class SceneMain extends Phaser.Scene {
             }
         }
 
-        this.updateThermometers();
+        if (!this.gameOver) {
+            this.updateThermometers();
+        }
     }
 
     printHouse(house) {
