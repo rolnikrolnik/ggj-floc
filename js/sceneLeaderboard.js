@@ -42,8 +42,7 @@ class SceneLeaderboard extends Phaser.Scene {
         }
         
         this.textOptions = {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'};
-;
-        this.pressSpacebar = this.add.text(380,700,"Press spacebar to continue...", this.textOptions);
+        this.pressSpacebar = this.add.text(380,700,"Kaj leziesz? Ciepnij spacje...",  {fontFamily:'ZCOOL KuaiLe',color:'#ffffb3',fontSize:'40px'});
 
         this.printScores();
 

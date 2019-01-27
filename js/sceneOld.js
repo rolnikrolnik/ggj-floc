@@ -40,7 +40,7 @@ class SceneManual extends Phaser.Scene {
         this.arrow.scaleX=1.5;
         this.arrow.angle=320;
 
-        this.ranking=this.add.text(50,580,"Dostarczaj cieplutko \n           do dzielnic",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.ranking=this.add.text(50,580,"Dej cieplutko \n           do dzielnic",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
         this.choiceBox = this.add.graphics();
 
