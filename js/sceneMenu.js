@@ -49,6 +49,7 @@ class SceneMenu extends Phaser.Scene {
 
         this.drawPipesInitial();
 
+        this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
         this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -122,7 +123,7 @@ class SceneMenu extends Phaser.Scene {
             this.drawChoiceBox();
         }
 
-        if (this.spaceBar.isDown) {
+        if (this.spaceBar.isDown || this.enter.isDown) {
             this.switchToScene();
         }      
     }

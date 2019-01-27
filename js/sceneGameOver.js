@@ -23,15 +23,16 @@ class SceneGameOver extends Phaser.Scene {
         this.scoreText = this.add.text(350, 275, `Efekt: ${this.score}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'170px'});
         this.nameText = this.add.text(550, 550, `Podej miano: ${this.name}_`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
         
-        this.add.text(360,700,"Zrychtuj miano i ciepnij ENTER...", {fontFamily:'ZCOOL KuaiLe',color:'#ffffb3',fontSize:'40px'});
+        this.add.text(360,700,"Zrychtuj miano i ciepnij SPACJE...", {fontFamily:'ZCOOL KuaiLe',color:'#ffffb3',fontSize:'40px'});
 
         this.input.keyboard.on('keydown', this.addLetterToName, this);  
 
+        this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     }
 
     update() {
-        if (this.enter.isDown) {
+        if (this.spacebar.isDown || this.enter.isDown) {
             this.saveScore();
 
             this.scene.start('sceneLeaderboard');

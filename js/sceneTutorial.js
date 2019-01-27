@@ -43,10 +43,11 @@ class SceneTutorial extends Phaser.Scene {
         this.pressSpacebar = this.add.text(395,700,"Kaj leziesz? Ciepnij spacje...", {fontFamily:'ZCOOL KuaiLe',color:'#ffffbe',fontSize:'40px'});
         
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
     }
 
     update() {
-        if (this.spacebar.isDown) {
+        if (this.spacebar.isDown || this.enter.isDown) {
             this.scene.start('sceneMenu');
         }
     }

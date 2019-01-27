@@ -50,7 +50,8 @@ class SceneLeaderboard extends Phaser.Scene {
         this.printScores();
 
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
- 
+        this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER); 
+        
         this.add.image(67, 172, "redPipe5");
         this.add.image(67, 204, "redPipe5");
         this.add.image(67, 236, "redPipe5");
@@ -106,7 +107,7 @@ class SceneLeaderboard extends Phaser.Scene {
     }
 
     update() {
-        if (this.spacebar.isDown) {
+        if (this.spacebar.isDown || this.enter.isDown) {
             this.scene.start('sceneMenu');
         }
     }

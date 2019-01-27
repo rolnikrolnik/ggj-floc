@@ -65,6 +65,7 @@ class SceneMain extends Phaser.Scene {
         this.printHouses();
         this.makeWungiel();
         this.cursors = this.input.keyboard.createCursorKeys();
+        this.enter = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
 
         this.ice = this.add.sprite(15000,100,'ice');
         var frameNames= this.anims.generateFrameNumbers('ice');
@@ -140,7 +141,7 @@ class SceneMain extends Phaser.Scene {
         }
 
         if (this.gameOver) {
-            if (Phaser.Input.Keyboard.JustDown(this.cursors.space)) {
+            if (Phaser.Input.Keyboard.JustDown(this.cursors.space) || this.enter.isDown) {
                 this.thermometersId.forEach(thermometerId => {
                     this.textures.remove(thermometerId);
                 })
