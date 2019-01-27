@@ -167,7 +167,10 @@ class SceneMain extends Phaser.Scene {
                 }
                 this.drawRect(this.plant.healthIndicator, RED, this.plant.health > 100 ? 150 : this.plant.health*150/100, 10);
                 this.plant.warning.visible = (this.plant.health < 20 || this.plant.health > 80);
+                this.updateThermometers();
+
             } catch (error) {
+                this.updateThermometers();
                 this.counter = GAME_SPEED + 1;
                 this.gameOver = true;
 
@@ -199,10 +202,6 @@ class SceneMain extends Phaser.Scene {
                 clearInterval(this.timer);
                 localStorage.setItem(CURRENT_SCORE, this.timing);
             }
-        }
-
-        if (!this.gameOver) {
-            this.updateThermometers();
         }
     }
 
