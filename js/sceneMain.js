@@ -151,52 +151,54 @@ class SceneMain extends Phaser.Scene {
 
         this.counter++;
 
-        try {
-            if (this.counter == GAME_SPEED) {
+        if (!this.gameOver) {
+            try {
+                if (this.counter == GAME_SPEED) {
 
-                this.plant.update();
+                    this.plant.update();
 
-                this.counter = 0;
+                    this.counter = 0;
+                }
+                
+                if (this.plant.refreshPipes){
+                    this.pipes.clear();
+                    this.updatePipes();
+                    this.plant.refreshPipes = false;  
+                }
+                this.drawRect(this.plant.healthIndicator, RED, this.plant.health > 100 ? 150 : this.plant.health*150/100, 10);
+                this.plant.warning.visible = (this.plant.health < 20 || this.plant.health > 80);
+            } catch (error) {
+                this.counter = GAME_SPEED + 1;
+                this.gameOver = true;
+
+                switch (error.error) {
+                    case HOUSE_BURNING:
+                        this.fire.x = this.plant.directions[error.index].houses[0].x;
+                        this.fire.y = this.plant.directions[error.index].houses[0].y;
+                        this.fire.play('animateFireMain');
+                        break;
+                    case HOUSE_FROZEN:
+                        this.ice.x = this.plant.directions[error.index].houses[0].x;
+                        this.ice.y = this.plant.directions[error.index].houses[0].y;
+                        this.ice.play('animateIceMain');
+                        break;
+                    case PLANT_BURNING:
+                        this.fire.x = this.plant.x;
+                        this.fire.y = this.plant.y;
+                        this.fire.play('animateFireMain');
+                        break;
+                    case PLANT_FROZEN:
+                        this.ice.x = this.plant.x;
+                        this.ice.y = this.plant.y;
+                        this.ice.play('animateIceMain');
+                        break;
+                }            
+
+                this.pressSpacebar = this.add.text(380,700,"Press spacebar to continue...", {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+
+                clearInterval(this.timer);
+                localStorage.setItem(CURRENT_SCORE, this.timing);
             }
-            
-            if (this.plant.refreshPipes){
-                this.pipes.clear();
-                this.updatePipes();
-                this.plant.refreshPipes = false;  
-            }
-            this.drawRect(this.plant.healthIndicator, RED, this.plant.health > 100 ? 150 : this.plant.health*150/100, 10);
-            this.plant.warning.visible = (this.plant.health < 20 || this.plant.health > 80);
-        } catch (error) {
-            this.counter = GAME_SPEED + 1;
-            this.gameOver = true;
-
-            switch (error.error) {
-                case HOUSE_BURNING:
-                    this.fire.x = this.plant.directions[error.index].houses[0].x;
-                    this.fire.y = this.plant.directions[error.index].houses[0].y;
-                    this.fire.play('animateFireMain');
-                    break;
-                case HOUSE_FROZEN:
-                    this.ice.x = this.plant.directions[error.index].houses[0].x;
-                    this.ice.y = this.plant.directions[error.index].houses[0].y;
-                    this.ice.play('animateIceMain');
-                    break;
-                case PLANT_BURNING:
-                    this.fire.x = this.plant.x;
-                    this.fire.y = this.plant.y;
-                    this.fire.play('animateFireMain');
-                    break;
-                case PLANT_FROZEN:
-                    this.ice.x = this.plant.x;
-                    this.ice.y = this.plant.y;
-                    this.ice.play('animateIceMain');
-                    break;
-            }            
-
-            this.pressSpacebar = this.add.text(380,700,"Press spacebar to continue...", {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
-
-            clearInterval(this.timer);
-            localStorage.setItem(CURRENT_SCORE, this.timing);
         }
 
         this.updateThermometers();
