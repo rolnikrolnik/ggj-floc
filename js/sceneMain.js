@@ -194,7 +194,7 @@ class SceneMain extends Phaser.Scene {
                         break;
                 }            
 
-            this.pressSpacebar = this.add.text(380,700,"Kaj leziesz? Ciepnij spacje...", {fontFamily:'ZCOOL KuaiLe',color:'#ffffb3',fontSize:'40px'});
+                this.pressSpacebar = this.add.text(430,700,"Kaj leziesz? Ciepnij spacje...", {fontFamily:'ZCOOL KuaiLe',color:'#ffffb3',fontSize:'40px'});
 
                 clearInterval(this.timer);
                 localStorage.setItem(CURRENT_SCORE, this.timing);

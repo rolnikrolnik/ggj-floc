@@ -20,8 +20,8 @@ class SceneGameOver extends Phaser.Scene {
         this.score = localStorage.getItem(CURRENT_SCORE);
         localStorage.removeItem(CURRENT_SCORE);
 
-        this.scoreText = this.add.text(350, 275, `Efekt: ${this.score}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'170px'});
-        this.nameText = this.add.text(550, 550, `Podej miano: ${this.name}_`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.scoreText = this.add.text(300, 275, `Efekt: ${this.score}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'170px'});
+        this.nameText = this.add.text(400, 550, `Podej miano: ${this.name}_`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
         
         this.add.text(360,700,"Zrychtuj miano i ciepnij SPACJE...", {fontFamily:'ZCOOL KuaiLe',color:'#ffffb3',fontSize:'40px'});
 

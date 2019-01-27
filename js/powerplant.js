@@ -2,7 +2,7 @@ class PowerPlant {
     constructor() {
         this.north = new Direction([new House(50, this.generateHouseIsolation(), this.generateHousePosition(200), 150)]);
         this.south = new Direction([new House(50, this.generateHouseIsolation(), this.generateHousePosition(200), 600) ]);
-        this.east = new Direction([new House(50, this.generateHouseIsolation(), 700, this.generateHousePosition(150)) ]);
+        this.east = new Direction([new House(50, this.generateHouseIsolation(), 750, this.generateHousePosition(150)) ]);
         this.west = new Direction([new House(50, this.generateHouseIsolation(), 0, this.generateHousePosition(300)) ]);
 
         this.directions = [ this.north, this.south, this.west, this.east ];
