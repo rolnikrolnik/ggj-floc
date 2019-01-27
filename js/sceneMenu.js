@@ -44,7 +44,7 @@ class SceneMenu extends Phaser.Scene {
         this.add.text(560,500,"MANUAL",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
         this.pressSpacebar = this.add.text(380,700,"Press spacebar to continue...", {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
-        drawPipesInitial();
+        this.drawPipesInitial();
 
         this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.cursors = this.input.keyboard.createCursorKeys();
