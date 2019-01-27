@@ -6,7 +6,10 @@ class SceneLeaderboard extends Phaser.Scene {
     
     preload()
     {
-        this.load.image('rankingLogo', 'images/logo/ranking-logo.png');
+        this.load.image('rankingLogo', 'images/logo/efekty-logo.png');
+
+        this.load.spritesheet('ice', 'images/ice.png', { frameWidth: 100, frameHeight: 135 });
+        this.load.spritesheet('fire', 'images/fire.png', { frameWidth: 100, frameHeight: 135 });
     
         this.load.image('redPipe1', 'images/pipes/red1.png');
         this.load.image('redPipe2', 'images/pipes/red2.png');
