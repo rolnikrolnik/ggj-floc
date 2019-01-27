@@ -7,6 +7,22 @@ class SceneLeaderboard extends Phaser.Scene {
     preload()
     {
         this.load.image('rankingLogo', 'images/logo/ranking-logo.png');
+    
+        this.load.image('redPipe1', 'images/pipes/red1.png');
+        this.load.image('redPipe2', 'images/pipes/red2.png');
+        this.load.image('redPipe3', 'images/pipes/red3.png');
+        this.load.image('redPipe4', 'images/pipes/red4.png');
+        this.load.image('redPipe5', 'images/pipes/red5.png');
+        this.load.image('redPipe6', 'images/pipes/red6.png');
+        this.load.image('redPipe7', 'images/pipes/red7.png');
+
+        this.load.image('bluePipe1', 'images/pipes/blue1.png');
+        this.load.image('bluePipe2', 'images/pipes/blue2.png');
+        this.load.image('bluePipe3', 'images/pipes/blue3.png');
+        this.load.image('bluePipe4', 'images/pipes/blue4.png');
+        this.load.image('bluePipe5', 'images/pipes/blue5.png');
+        this.load.image('bluePipe6', 'images/pipes/blue6.png');
+        this.load.image('bluePipe7', 'images/pipes/blue7.png');
     }
 
     create ()
@@ -30,6 +46,59 @@ class SceneLeaderboard extends Phaser.Scene {
         this.printScores();
 
         this.spacebar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+ 
+        this.add.image(67, 172, "redPipe5");
+        this.add.image(67, 204, "redPipe5");
+        this.add.image(67, 236, "redPipe5");
+        this.add.image(67, 268, "redPipe5");
+        this.add.image(70, 298, "redPipe7");
+        this.add.image(100, 300, "redPipe1");
+        this.add.image(132, 300, "redPipe1");
+        this.add.image(164, 300, "redPipe1");
+        this.add.image(196, 300, "redPipe1");
+        this.add.image(228, 300, "redPipe1");
+        this.add.image(260, 300, "redPipe1");
+        this.add.image(290, 303, "redPipe2");
+
+        this.add.image(292, 332, "redPipe5");
+        this.add.image(292, 364, "redPipe5");
+        this.add.image(292, 396, "redPipe5");
+        this.add.image(290, 427, "redPipe3");
+
+        this.add.image(259, 429, "redPipe1");
+        this.add.image(227, 429, "redPipe1");
+
+        this.add.image(198, 427, "redPipe7");
+        this.add.image(195, 396, "redPipe5");
+        this.add.image(193, 366, "redPipe2");
+
+        this.add.image(162, 363, "redPipe1");
+
+        this.add.image(1000, 500, "bluePipe1");
+        this.add.image(1032, 500, "bluePipe1");
+        this.add.image(1064, 500, "bluePipe1");
+        this.add.image(1096, 500, "bluePipe1");
+        this.add.image(1126, 503, "bluePipe2");
+
+        this.add.image(1128, 532, "bluePipe6");
+        this.add.image(1128, 564, "bluePipe6");
+        this.add.image(1128, 596, "bluePipe6");
+        this.add.image(1131, 627, "bluePipe3");
+
+        this.add.image(1161, 629, "bluePipe1");
+        this.add.image(1193, 629, "bluePipe1");
+        this.add.image(1226, 629, "bluePipe1");
+
+
+
+
+        
+
+
+
+
+
+    
     }
 
     update() {
