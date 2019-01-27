@@ -44,55 +44,7 @@ class SceneMenu extends Phaser.Scene {
         this.add.text(560,500,"MANUAL",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
         this.pressSpacebar = this.add.text(380,700,"Press spacebar to continue...", {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
-        this.add.image(788, 320, "redPipe1");
-        this.add.image(820, 320, "redPipe1");
-        this.add.image(852, 320, "redPipe1");
-        this.add.image(882, 323, "redPipe2");
-
-        this.add.image(884, 353, "redPipe5");
-        this.add.image(884, 387, "redPipe5");
-
-        this.add.image(788, 420, "redPipe1");
-        this.add.image(820, 420, "redPipe1");
-        this.add.image(852, 420, "redPipe1");
-
-        this.add.image(884, 486, "redPipe5");
-        this.add.image(884, 452, "redPipe5");
-
-        this.add.image(788, 520, "redPipe1");
-        this.add.image(820, 520, "redPipe1");
-        this.add.image(852, 520, "redPipe1");
-        this.add.image(882, 517, "redPipe3");
-
-        this.add.image(884, 420, "redPipe4");
-        this.add.image(916, 420, "redPipe1");
-        this.add.image(948, 420, "redPipe1");
-        this.add.image(980, 420, "redPipe1");
-
-        this.add.image(501, 320, "bluePipe1");
-        this.add.image(469, 320, "bluePipe1");
-        this.add.image(437, 320, "bluePipe1");
-        this.add.image(407, 323, "bluePipe5");
-
-        this.add.image(404, 353, "bluePipe6");
-        this.add.image(404, 387, "bluePipe6");
-
-        this.add.image(501, 420, "bluePipe1");
-        this.add.image(469, 420, "bluePipe1");
-        this.add.image(437, 420, "bluePipe1");
-
-        this.add.image(404, 453, "bluePipe6");
-        this.add.image(404, 487, "bluePipe6");
-
-        this.add.image(501, 520, "bluePipe1");
-        this.add.image(469, 520, "bluePipe1");
-        this.add.image(437, 520, "bluePipe1");
-        this.add.image(407, 518, "bluePipe3");
-
-        this.add.image(404, 420, "bluePipe4");
-        this.add.image(371, 420, "bluePipe1");
-        this.add.image(338, 420, "bluePipe1");
-        this.add.image(305, 420, "bluePipe1");
+        drawPipesInitial();
 
         this.spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         this.cursors = this.input.keyboard.createCursorKeys();
@@ -173,5 +125,57 @@ class SceneMenu extends Phaser.Scene {
         this.choiceBox.clear();
         this.choiceBox.lineStyle(3, 0xdf7919, 1);
         this.choiceBox.strokeRect(520, 285 + this.choice * 100, 250, 70);
+    }
+    drawPipesInitial()
+    {
+        this.add.image(788, 320, "redPipe1");
+        this.add.image(820, 320, "redPipe1");
+        this.add.image(852, 320, "redPipe1");
+        this.add.image(882, 323, "redPipe2");
+
+        this.add.image(884, 353, "redPipe5");
+        this.add.image(884, 387, "redPipe5");
+
+        this.add.image(788, 420, "redPipe1");
+        this.add.image(820, 420, "redPipe1");
+        this.add.image(852, 420, "redPipe1");
+
+        this.add.image(884, 486, "redPipe5");
+        this.add.image(884, 452, "redPipe5");
+
+        this.add.image(788, 520, "redPipe1");
+        this.add.image(820, 520, "redPipe1");
+        this.add.image(852, 520, "redPipe1");
+        this.add.image(882, 517, "redPipe3");
+
+        this.add.image(884, 420, "redPipe4");
+        this.add.image(916, 420, "redPipe1");
+        this.add.image(948, 420, "redPipe1");
+        this.add.image(980, 420, "redPipe1");
+
+        this.add.image(501, 320, "bluePipe1");
+        this.add.image(469, 320, "bluePipe1");
+        this.add.image(437, 320, "bluePipe1");
+        this.add.image(407, 323, "bluePipe5");
+
+        this.add.image(404, 353, "bluePipe6");
+        this.add.image(404, 387, "bluePipe6");
+
+        this.add.image(501, 420, "bluePipe1");
+        this.add.image(469, 420, "bluePipe1");
+        this.add.image(437, 420, "bluePipe1");
+
+        this.add.image(404, 453, "bluePipe6");
+        this.add.image(404, 487, "bluePipe6");
+
+        this.add.image(501, 520, "bluePipe1");
+        this.add.image(469, 520, "bluePipe1");
+        this.add.image(437, 520, "bluePipe1");
+        this.add.image(407, 518, "bluePipe3");
+
+        this.add.image(404, 420, "bluePipe4");
+        this.add.image(371, 420, "bluePipe1");
+        this.add.image(338, 420, "bluePipe1");
+        this.add.image(305, 420, "bluePipe1");
     }
 }
