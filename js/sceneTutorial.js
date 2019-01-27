@@ -38,7 +38,7 @@ class SceneTutorial extends Phaser.Scene {
         this.arrow.scaleX=1.5;
         this.arrow.angle=320;
 
-        this.ranking=this.add.text(150,580,"Dostarczaj cieplutko \n           do dzielnic",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.ranking=this.add.text(190,580,"Dej cieplutko \n   familokom",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
 
         this.pressSpacebar = this.add.text(395,700,"Kaj leziesz? Ciepnij spacje...", {fontFamily:'ZCOOL KuaiLe',color:'#ffffbe',fontSize:'40px'});
         
