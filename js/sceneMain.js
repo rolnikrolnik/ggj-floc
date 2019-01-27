@@ -364,7 +364,12 @@ class SceneMain extends Phaser.Scene {
     }
 
     updateHouse(house){
-        this.drawRect(house.thermometer, BLACK, 10, 150 - house.temp*150/100);
+        this.drawRect(house.thermometer, BLACK, 10, 
+            house.temp*150/100 > 150
+                ? 0
+                : house.temp*150/100 < 0
+                    ? 150
+                    : 150 - house.temp*150/100);
     }
 
     updateTime() {  
