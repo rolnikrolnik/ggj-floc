@@ -23,6 +23,8 @@ class SceneLeaderboard extends Phaser.Scene {
         this.load.image('bluePipe5', 'images/pipes/blue5.png');
         this.load.image('bluePipe6', 'images/pipes/blue6.png');
         this.load.image('bluePipe7', 'images/pipes/blue7.png');
+        this.load.image('bluePipe8', 'images/pipes/blue8.png');
+        this.load.image('bluePipe9', 'images/pipes/blue9.png');
     }
 
     create ()
@@ -76,7 +78,7 @@ class SceneLeaderboard extends Phaser.Scene {
 
         this.add.image(1000, 500, "bluePipe1");
         this.add.image(1032, 500, "bluePipe1");
-        this.add.image(1064, 500, "bluePipe1");
+        this.add.image(1064, 498, "bluePipe8");
         this.add.image(1096, 500, "bluePipe1");
         this.add.image(1126, 503, "bluePipe2");
 
@@ -89,14 +91,9 @@ class SceneLeaderboard extends Phaser.Scene {
         this.add.image(1193, 629, "bluePipe1");
         this.add.image(1226, 629, "bluePipe1");
 
-
-
-
-        
-
-
-
-
+        this.add.image(1064, 468, "bluePipe6");
+        this.add.image(1064, 436, "bluePipe6");
+        this.add.image(1067, 403, "bluePipe9");
 
     
     }

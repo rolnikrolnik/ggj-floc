@@ -124,7 +124,7 @@ class SceneMenu extends Phaser.Scene {
 
         if (this.spaceBar.isDown) {
             this.switchToScene();
-        }
+        }      
     }
 
     switchToScene()
