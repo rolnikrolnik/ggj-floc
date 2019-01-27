@@ -7,7 +7,7 @@ class SceneGameOver extends Phaser.Scene {
     
     preload()
     {
-        this.load.image('gameoverLogo', 'images/logo/gameover-logo.png');
+        this.load.image('gameoverLogo', 'images/logo/kuniec-logo.png');
     }
 
     create ()
@@ -20,10 +20,10 @@ class SceneGameOver extends Phaser.Scene {
         this.score = localStorage.getItem(CURRENT_SCORE);
         localStorage.removeItem(CURRENT_SCORE);
 
-        this.scoreText = this.add.text(350, 275, `Score: ${this.score}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'170px'});
-        this.nameText = this.add.text(580, 550, `Name: ${this.name}_`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.scoreText = this.add.text(350, 275, `Efekt: ${this.score}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'170px'});
+        this.nameText = this.add.text(550, 550, `Podej miano: ${this.name}_`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
         
-        this.add.text(360,700,"Type your name and click ENTER...", {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.add.text(360,700,"Zrychtuj miano i ciepnij ENTER...", {fontFamily:'ZCOOL KuaiLe',color:'#ffffb3',fontSize:'40px'});
 
         this.input.keyboard.on('keydown', this.addLetterToName, this);  
 
@@ -49,9 +49,9 @@ class SceneGameOver extends Phaser.Scene {
         }
 
         if (this.name.length == 6) {
-            this.nameText.setText(`Name: ${this.name}`);
+            this.nameText.setText(`Podej miano: ${this.name}`);
         } else {
-            this.nameText.setText(`Name: ${this.name}_`);
+            this.nameText.setText(`Podej miano: ${this.name}_`);
         }
     }
 

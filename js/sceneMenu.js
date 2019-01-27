@@ -42,10 +42,10 @@ class SceneMenu extends Phaser.Scene {
         this.logo.scaleX=1.1;
         this.logo.scaleY=1.1;
 
-        this.add.text(590,300,"GRAJ",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
-        this.add.text(550,400,"RANKING",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
-        this.add.text(560,500,"MANUAL",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
-        this.pressSpacebar = this.add.text(380,700,"Press spacebar to continue...", {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.add.text(590,300,"GREJ",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.add.text(565,400,"EFEKTY",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.add.text(560,500,"INO JAK?",{fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.pressSpacebar = this.add.text(395,700,"Kaj leziesz? Ciepnij spacje...", {fontFamily:'ZCOOL KuaiLe',color:'#ffffb3',fontSize:'40px'});
 
         this.drawPipesInitial();
 

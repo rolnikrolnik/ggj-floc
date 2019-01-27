@@ -58,7 +58,7 @@ class SceneMain extends Phaser.Scene {
         this.timing = 0;
         this.timer = setInterval(() => this.updateTime(), 1000);
 
-        this.timerDisplay = this.add.text(20, 20, `Dni: ${0}, godziny: ${0}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.timerDisplay = this.add.text(0, 20, `Dni: ${0}, godziny: ${0}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
         this.hsv = Phaser.Display.Color.HSVColorWheel();
 
         this.pipes = this.add.group();
@@ -87,8 +87,8 @@ class SceneMain extends Phaser.Scene {
 
     makeWungiel() {
         this.wungiel = 3;
-        this.wungielDisplay = this.add.text(0, 100, `Chopie, mosz ${this.wungiel} holdy wungla`, {fontFamily:'ZCOOL KuaiLe', color:'#df7919',fontSize:'30px'});
-        this.wungielButtonDisplay = this.add.text(0, 130, `Ciepnij spacje i dopierdziel do pieca`, {fontFamily:'ZCOOL KuaiLe', color:'#df7919',fontSize:'20px'});
+        this.wungielDisplay = this.add.text(0, 100, `Chopie, mosz ${this.wungiel} wungle z gruby`, {fontFamily:'ZCOOL KuaiLe', color: '#ffffb3',fontSize:'30px'});
+        this.wungielButtonDisplay = this.add.text(0, 130, `Ciepnij spacje i dogrzej kafloka`, {fontFamily:'ZCOOL KuaiLe', color: '#ffffb3',fontSize:'20px'});
     }
 
     makeGradientLine(x, y) {
@@ -108,7 +108,6 @@ class SceneMain extends Phaser.Scene {
         texture.refresh();
 
         this.add.image(x, y, thermometerId); // pos
-
     }
 
     useWungiel() {
@@ -194,7 +193,7 @@ class SceneMain extends Phaser.Scene {
                         break;
                 }            
 
-                this.pressSpacebar = this.add.text(380,700,"Press spacebar to continue...", {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+            this.pressSpacebar = this.add.text(380,700,"Kaj leziesz? Ciepnij spacje...", {fontFamily:'ZCOOL KuaiLe',color:'#ffffb3',fontSize:'40px'});
 
                 clearInterval(this.timer);
                 localStorage.setItem(CURRENT_SCORE, this.timing);
@@ -382,7 +381,6 @@ class SceneMain extends Phaser.Scene {
 
         house.warningHot.visible = house.temp > 80;
         house.warningCold.visible = house.temp < 20;
-        console.log(house);
     }
 
     updateTime() {  
@@ -395,6 +393,8 @@ class SceneMain extends Phaser.Scene {
     }
 
     updateWungiel() {
-        this.wungielDisplay.setText(`Mosz ${this.wungiel} holdy wungla`);
+        this.wungielDisplay.setText(`Mosz ${this.wungiel} wungle z gruby`);
     }
 }
+
+
