@@ -15,6 +15,7 @@ class PowerPlant {
         this.x = MOVE_ALL_X + 350;
         this.y = MOVE_ALL_Y + 350;
         this.refreshPipes = true;
+        this.warning = undefined;
     }
 
     generateHouseIsolation(){
@@ -91,6 +92,8 @@ class House {
         this.insulation = insulation;
         this.x = MOVE_ALL_X + x;
         this.y = MOVE_ALL_Y + y;
+        this.warningHot = undefined;
+        this.warningCold = undefined;
     }
 
     decrease() {
@@ -104,6 +107,7 @@ class House {
     createThermometer(thermometer){
         this.thermometer = thermometer;
     }
+
 }
 
 class GameOverException {

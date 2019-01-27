@@ -18,7 +18,6 @@ class SceneMain extends Phaser.Scene {
         this.load.image('red2', 'images/pipes/red2.png');
 
         this.thermometersId = [];
-
         this.load.spritesheet('ice', 'images/ice.png', { frameWidth: 100, frameHeight: 135 });
         this.load.spritesheet('fire', 'images/fire.png', { frameWidth: 100, frameHeight: 135 });
     }
@@ -46,8 +45,9 @@ class SceneMain extends Phaser.Scene {
         this.drawRect(this.add.graphics({x: this.plant.x+30 - 1, y: this.plant.y + 95 - 2}), WHITE, 152, 14 );
         var termGrey = this.add.graphics({x: this.plant.x+30, y: this.plant.y + 94});
         this.drawRect(termGrey, GREY, 150, 12);
-        this.plant.healthIndicator = this.add.graphics({x: this.plant.x+30, y: this.plant.y + 95 })
-        this.drawRect(this.plant.healthIndicator, RED, 150, 10)
+        this.plant.healthIndicator = this.add.graphics({x: this.plant.x+30, y: this.plant.y + 95 });
+        this.drawRect(this.plant.healthIndicator, RED, 150, 10);
+        this.plant.warning = this.add.text(this.plant.x+100,this.plant.y+50, '!', {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'})
     }
     create() {
         this.counter = 0;
@@ -165,6 +165,7 @@ class SceneMain extends Phaser.Scene {
                 this.plant.refreshPipes = false;  
             }
             this.drawRect(this.plant.healthIndicator, RED, this.plant.health > 100 ? 150 : this.plant.health*150/100, 10);
+            this.plant.warning.visible = (this.plant.health < 20 || this.plant.health > 80);
         } catch (error) {
             this.counter = GAME_SPEED + 1;
             this.gameOver = true;
@@ -206,10 +207,14 @@ class SceneMain extends Phaser.Scene {
         if (house.x < this.plant.x){
             this.makeGradientLine(house.x - 89, house.y);
             house.createThermometer(this.add.graphics({ x: house.x - 94, y: house.y - 75}));
+            house.warningHot = this.add.text(house.x - 110, house.y - 70, `!`, {fontFamily:'ZCOOL KuaiLe', color:'#df7919',fontSize:'30px'});
+            house.warningCold = this.add.text(house.x - 110, house.y + 45, `!`, {fontFamily:'ZCOOL KuaiLe', color:'#df7919',fontSize:'30px'});
         }
         else {
             this.makeGradientLine(house.x + 99, house.y);
             house.createThermometer(this.add.graphics({ x: house.x + 94, y: house.y - 75}));
+            house.warningHot = this.add.text(house.x + 110, house.y - 70, `!`, {fontFamily:'ZCOOL KuaiLe', color:'#df7919',fontSize:'30px'});
+            house.warningCold = this.add.text(house.x + 110, house.y + 45, `!`, {fontFamily:'ZCOOL KuaiLe', color:'#df7919',fontSize:'30px'});
         }
     }
 
@@ -370,6 +375,10 @@ class SceneMain extends Phaser.Scene {
                 : house.temp*150/100 < 0
                     ? 150
                     : 150 - house.temp*150/100);
+
+        house.warningHot.visible = house.temp > 80;
+        house.warningCold.visible = house.temp < 20;
+        console.log(house);
     }
 
     updateTime() {  
