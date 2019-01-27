@@ -203,9 +203,14 @@ class SceneMain extends Phaser.Scene {
 
     printHouse(house) {
         this.houses.create(house.x, house.y, house.insulation.toString()).setDisplaySize(150, 150);
-        this.makeGradientLine(house.x - 89, house.y);
-        
-        house.createThermometer(this.add.graphics({ x: house.x - 94, y: house.y - 75}));
+        if (house.x < this.plant.x){
+            this.makeGradientLine(house.x - 89, house.y);
+            house.createThermometer(this.add.graphics({ x: house.x - 94, y: house.y - 75}));
+        }
+        else {
+            this.makeGradientLine(house.x + 99, house.y);
+            house.createThermometer(this.add.graphics({ x: house.x + 94, y: house.y - 75}));
+        }
     }
 
     drawPipe(x, y, angle, type){
