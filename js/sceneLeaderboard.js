@@ -78,30 +78,54 @@ class SceneLeaderboard extends Phaser.Scene {
 
         this.add.image(162, 363, "redPipe1");
 
-        this.add.image(1000, 500, "bluePipe1");
-        this.add.image(1032, 500, "bluePipe1");
-        this.add.image(1064, 498, "bluePipe8");
-        this.add.image(1096, 500, "bluePipe1");
-        this.add.image(1126, 503, "bluePipe2");
+        this.add.image(1000, 520, "bluePipe1");
+        this.add.image(1032, 520, "bluePipe1");
+        this.add.image(1064, 518, "bluePipe8");
+        this.add.image(1096, 520, "bluePipe1");
+        this.add.image(1126, 523, "bluePipe2");
 
-        this.add.image(1128, 532, "bluePipe6");
-        this.add.image(1128, 564, "bluePipe6");
-        this.add.image(1128, 596, "bluePipe6");
-        this.add.image(1131, 627, "bluePipe3");
+        this.add.image(1128, 552, "bluePipe6");
+        this.add.image(1128, 584, "bluePipe6");
+        this.add.image(1128, 616, "bluePipe6");
+        this.add.image(1131, 647, "bluePipe3");
 
-        this.add.image(1161, 629, "bluePipe1");
-        this.add.image(1193, 629, "bluePipe1");
-        this.add.image(1226, 629, "bluePipe1");
+        this.add.image(1161, 649, "bluePipe1");
+        this.add.image(1193, 649, "bluePipe1");
+        this.add.image(1226, 649, "bluePipe1");
 
-        this.add.image(1064, 468, "bluePipe6");
-        this.add.image(1064, 436, "bluePipe6");
-        this.add.image(1067, 403, "bluePipe9");
+        this.add.image(1064, 488, "bluePipe6");
+        this.add.image(1064, 456, "bluePipe6");
+        this.add.image(1067, 423, "bluePipe9");
 
-        this.add.image(1096, 403, "bluePipe1");
-        this.add.image(1126, 401, "bluePipe7");
-        this.add.image(1131, 374, "bluePipe5");
-        this.add.image(1161, 371, "bluePipe1");
-        this.add.image(1193, 371, "bluePipe1");
+        this.add.image(1096, 423, "bluePipe1");
+        this.add.image(1126, 421, "bluePipe7");
+        this.add.image(1131, 394, "bluePipe5");
+        this.add.image(1161, 391, "bluePipe1");
+        this.add.image(1193, 391, "bluePipe1");
+
+        this.ice = this.add.sprite(190,550,'ice');
+        this.ice.scaleX = 1.3;
+        this.ice.scaleY = 1.3;
+        var frameNames= this.anims.generateFrameNumbers('ice');
+        this.anims.create({
+            key: 'animateIce',
+            frames: frameNames,
+            frameRate: 6,
+            repeat: -1
+        });
+        this.ice.play('animateIce');
+
+        this.fire = this.add.sprite(1100,250,'fire');
+        this.fire.scaleX = 1.3;
+        this.fire.scaleY = 1.3;
+        var frameNames= this.anims.generateFrameNumbers('fire');
+        this.anims.create({
+            key: 'animateFire',
+            frames: frameNames,
+            frameRate: 8,
+            repeat: -1 
+        });
+        this.fire.play('animateFire');
     
     }
 
