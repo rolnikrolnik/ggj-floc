@@ -58,7 +58,7 @@ class SceneMain extends Phaser.Scene {
         this.timing = 0;
         this.timer = setInterval(() => this.updateTime(), 1000);
 
-        this.timerDisplay = this.add.text(20, 20, `Dni: ${0}, godziny: ${0}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
+        this.timerDisplay = this.add.text(0, 20, `Dni: ${0}, godziny: ${0}`, {fontFamily:'ZCOOL KuaiLe',color:'#df7919',fontSize:'40px'});
         this.hsv = Phaser.Display.Color.HSVColorWheel();
 
         this.pipes = this.add.group();
