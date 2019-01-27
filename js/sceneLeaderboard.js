@@ -100,8 +100,6 @@ class SceneLeaderboard extends Phaser.Scene {
         this.add.image(1131, 374, "bluePipe5");
         this.add.image(1161, 371, "bluePipe1");
         this.add.image(1193, 371, "bluePipe1");
-
-
     
     }
 
